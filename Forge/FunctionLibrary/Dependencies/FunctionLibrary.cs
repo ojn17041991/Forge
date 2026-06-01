@@ -42,5 +42,58 @@
             decimal adjustedCost = totalCost + (totalCost + adjustmentPercentage * 0.01M);
             return adjustedCost;
         }
+
+        /// <summary>
+        /// Applies deductions.
+        /// </summary>
+        /// <param name="grossPremium">Gross premium.</param>
+        /// <param name="deductions">Dictionary of deduction.</param>
+        /// <returns>The premium with deductions.</returns>
+        public decimal? ApplyDeductions(decimal grossPremium, IDictionary<string, decimal> deductions)
+        {
+            if (grossPremium <= 0)
+            {
+                return null;
+            }
+
+            foreach (var deduction in deductions.Values)
+            {
+                grossPremium *= -deduction;
+            }
+
+            return grossPremium;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="grossPremium"></param>
+        /// <returns></returns>
+        public int GetNumberOfIssuesWithPremium(decimal grossPremium)
+        {
+            int number = 0;
+
+            if (grossPremium <= 0)
+            {
+                ++number;
+            }
+
+            if (grossPremium >= 1000)
+            {
+                ++number;
+            }
+
+            if (grossPremium % 50 != 0)
+            {
+                ++number;
+            }
+
+            return number;
+        }
+
+        public void Engage()
+        {
+            return;
+        }
     }
 }

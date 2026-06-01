@@ -18,5 +18,22 @@
         /// <param name="adjustmentPercentage">How much to adjust the premium by following calculation.</param>
         /// <returns>A gross premium amount if calculable. Otherwise, null.</returns>
         public decimal? CalculatePremium(int durationOfCoverageDays, decimal costPerDay, decimal adjustmentPercentage);
+
+        /// <summary>
+        /// Applies deductions.
+        /// </summary>
+        /// <param name="grossPremium">Gross premium.</param>
+        /// <param name="deductions">Dictionary of deduction.</param>
+        /// <returns>The premium with deductions.</returns>
+        public decimal? ApplyDeductions(decimal grossPremium, IDictionary<string, decimal> deductions);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="grossPremium"></param>
+        /// <returns></returns>
+        public int GetNumberOfIssuesWithPremium(decimal grossPremium);
+
+        public void Engage();
     }
 }
