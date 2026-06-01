@@ -1,4 +1,4 @@
-﻿namespace InputLibrary.Enums
+﻿namespace FunctionLibrary.Enums
 {
     public enum CatBreed
     {

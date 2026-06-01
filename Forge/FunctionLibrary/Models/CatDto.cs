@@ -1,6 +1,6 @@
-﻿using InputLibrary.Enums;
+﻿using FunctionLibrary.Enums;
 
-namespace InputLibrary.Models
+namespace FunctionLibrary.Models
 {
     public class CatDto
     {

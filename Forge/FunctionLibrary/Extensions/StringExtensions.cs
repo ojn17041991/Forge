@@ -1,4 +1,4 @@
-﻿namespace InputLibrary.Extensions
+﻿namespace FunctionLibrary.Extensions
 {
     public static class StringExtensions
     {
