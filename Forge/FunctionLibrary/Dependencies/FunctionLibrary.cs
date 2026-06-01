@@ -1,7 +1,13 @@
-﻿namespace FunctionLibrary.Dependencies
+﻿using FunctionLibrary.Enums;
+using FunctionLibrary.Extensions;
+using FunctionLibrary.Models;
+
+namespace FunctionLibrary.Dependencies
 {
     public class FunctionLibrary : IFunctionLibrary
     {
+        IList<CatDto> _cats = new List<CatDto>();
+
         /// <summary>
         /// Returns the sum of two numbers.
         /// </summary>

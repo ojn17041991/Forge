@@ -1,4 +1,6 @@
-﻿namespace FunctionLibrary
+﻿using FunctionLibrary.Models;
+
+namespace FunctionLibrary
 {
     public interface IFunctionLibrary
     {
