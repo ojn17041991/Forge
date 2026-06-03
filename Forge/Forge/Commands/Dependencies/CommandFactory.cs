@@ -1,13 +1,46 @@
-﻿using Forge.Commands.Interfaces;
+﻿using Forge.Commands.Enums;
+using Forge.Commands.Interfaces;
+using Forge.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Forge.Commands.Dependencies
 {
-    public class CommandFactory : ICommandFactory
+    public class CommandFactory(IServiceProvider serviceProvider) : ICommandFactory
     {
-        public ICommand Build(string[] args)
+        private readonly IServiceProvider serviceProvider = serviceProvider;
+
+        public ICommand? Build(string[] args)
         {
-            // Use DI to find all ICommands and then pick the one with the correct Enum value.
-            throw new NotImplementedException();
+            if (args.Length < 1)
+            {
+                return null;
+            }
+
+            var verb = args[0].ToEnum<CommandVerb>();
+            if (verb == null)
+            {
+                return null;
+            }
+
+            var commandBuilders = serviceProvider.GetServices<ICommandBuilder>();
+            if (commandBuilders == null || commandBuilders.Count() == 0)
+            {
+                return null;
+            }
+
+            var commandBuilder = commandBuilders.SingleOrDefault(x => x.Verb == verb);
+            if (commandBuilder == null)
+            {
+                return null;
+            }
+
+            var command = commandBuilder.Build(args);
+            if (command == null)
+            {
+                return null;
+            }
+
+            return command;
         }
     }
 }

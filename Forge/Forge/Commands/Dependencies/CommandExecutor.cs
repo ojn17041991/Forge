@@ -1,12 +1,35 @@
 ﻿using Forge.Commands.Interfaces;
+using Forge.Executors.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Forge.Commands.Dependencies
 {
-    public class CommandExecutor : ICommandExecutor
+    public class CommandExecutor(IServiceProvider serviceProvider) : ICommandExecutor
     {
-        public bool Execute<T>(T command) where T : ICommand
+        private readonly IServiceProvider serviceProvider = serviceProvider;
+
+        public bool Execute(ICommand command)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var commandExecutors = serviceProvider.GetServices<IExecutor>();
+                if (commandExecutors == null || commandExecutors.Count() == 0)
+                {
+                    return false;
+                }
+
+                var commandExecutor = commandExecutors.SingleOrDefault(x => x.Verb == command.Verb);
+                if (commandExecutor == null)
+                {
+                    return false;
+                }
+
+                return commandExecutor.Execute(command);
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
+            }
         }
     }
 }

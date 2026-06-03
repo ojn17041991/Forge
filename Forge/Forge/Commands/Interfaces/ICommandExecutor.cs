@@ -2,6 +2,6 @@
 {
     public interface ICommandExecutor
     {
-        bool Execute<T>(T command) where T : ICommand;
+        bool Execute(ICommand command);
     }
 }

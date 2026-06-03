@@ -1,11 +1,14 @@
-﻿using Forge.Commands.Models;
-using Forge.Handlers.Abstract;
+﻿using Forge.Commands.Enums;
+using Forge.Commands.Models;
+using Forge.Executors.Interfaces;
 
 namespace Forge.Handlers.Dependencies
 {
-    public class SpecExecutor : IExecutor<SpecCommand>
+    public class SpecExecutor() : TypedExecutor<SpecCommand>
     {
-        public bool Execute(SpecCommand command)
+        public override CommandVerb Verb => CommandVerb.Spec;
+
+        public override bool Execute(SpecCommand command)
         {
             return true;
         }

@@ -1,5 +1,54 @@
 ﻿using Forge.Commands.Dependencies;
 using Forge.Commands.Interfaces;
+using Forge.Commands.Models;
+using Forge.Executors.Interfaces;
+using Forge.Handlers.Dependencies;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+var builder = Host.CreateApplicationBuilder(args);
+
+builder.Services.AddSingleton<ICommandFactory, CommandFactory>();
+builder.Services.AddSingleton<ICommandExecutor, CommandExecutor>();
+
+builder.Services.AddTransient<ICommand, SpecCommand>();
+builder.Services.AddTransient<ICommandBuilder, SpecCommandBuilder>();
+builder.Services.AddTransient<IExecutor, SpecExecutor>();
+
+var host = builder.Build();
+
+ICommandFactory commandFactory = host.Services.GetRequiredService<ICommandFactory>();
+ICommandExecutor commandExecutor = host.Services.GetRequiredService<ICommandExecutor>();
+
+// Step 1 - Receive input with args.
+// Handled by the framework.
+
+// Step 2 - Use the CommandFactory to convert the input data into a Command model.
+ICommand? command = commandFactory.Build(args);
+if (command == null)
+{
+    return;
+}
+
+// Step 3 - Use the CommandExecutor to execute the Command.
+bool result = commandExecutor.Execute(command);
+if (result == true)
+{
+    return;
+}
+else
+{
+    return;
+}
+
+// TODO:
+// - Seperate the workflow out into its own service?
+// - Use extension method for DI registration.
+// - Review project structure.
+// - Need to plug in the API and make things asynchronous. Needs its own service.
+// - Add logging.
+// - Return dataResponse from services?
+
 //using Microsoft.Extensions.Configuration;
 //using OpenAI.Chat;
 
@@ -14,18 +63,3 @@ using Forge.Commands.Interfaces;
 //ChatCompletion completion = client.CompleteChat("Say 'this is a test.'");
 
 //Console.WriteLine($"[ASSISTANT]: {completion.Content[0].Text}");
-
-// Step 1 - Receive input with args.
-// Handled by the framework.
-
-// Step 2 - Use the CommandFactory to convert the input data into a Command model.
-CommandFactory commandFactory = new CommandFactory();
-ICommand command = commandFactory.Build(args);
-
-// Step 3 - Use the CommandExecutor to execute the Command.
-CommandExecutor commandExecutor = new CommandExecutor();
-bool result = commandExecutor.Execute(command);
-
-// TODO:
-// - Need to setup DI to properly pull down the factory classes and the commands and executors within the factories.
-// - Need to plug in the API and make things asynchronous.

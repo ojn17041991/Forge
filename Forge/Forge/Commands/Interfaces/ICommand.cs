@@ -1,9 +1,7 @@
-﻿using Forge.Commands.Enums;
-
-namespace Forge.Commands.Interfaces
+﻿namespace Forge.Commands.Interfaces
 {
-    public interface ICommand
+    public interface ICommand : ICommandService
     {
-        CommandVerb Verb { get; }
+
     }
 }

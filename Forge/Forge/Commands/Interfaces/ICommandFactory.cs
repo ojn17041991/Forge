@@ -2,6 +2,6 @@
 {
     public interface ICommandFactory
     {
-        ICommand Build(string[] args);
+        ICommand? Build(string[] args);
     }
 }

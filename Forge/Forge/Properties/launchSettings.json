@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Forge": {
+      "commandName": "Project",
+      "commandLineArgs": "spec --filename myfile.md"
+    }
+  }
+}

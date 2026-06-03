@@ -1,9 +1,9 @@
 ﻿using Forge.Commands.Interfaces;
 
-namespace Forge.Handlers.Abstract
+namespace Forge.Executors.Interfaces
 {
-    public interface IExecutor<T> where T : ICommand
+    public interface IExecutor : ICommandService
     {
-        bool Execute(T command);
+        bool Execute(ICommand command);
     }
 }
