@@ -1,20 +1,11 @@
 ﻿using Forge.Abstractions.Services;
 using Forge.Abstractions.Verbs.Commands;
-using Forge.Abstractions.Verbs.Executors;
-using Forge.Commands.Spec;
-using Forge.Services;
+using Forge.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var builder = Host.CreateApplicationBuilder(args);
-
-builder.Services.AddSingleton<ICommandFactory, CommandFactory>();
-builder.Services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
-
-builder.Services.AddTransient<ICommand, SpecCommand>();
-builder.Services.AddTransient<ICommandBuilder, SpecCommandBuilder>();
-builder.Services.AddTransient<IExecutor, SpecExecutor>();
-
+builder.Services.RegisterDependencies();
 var host = builder.Build();
 
 ICommandFactory commandFactory = host.Services.GetRequiredService<ICommandFactory>();
@@ -43,7 +34,6 @@ else
 
 // TODO:
 // - Seperate the workflow out into its own service?
-// - Use extension method for DI registration.
 // - Need to plug in the API and make things asynchronous. Needs its own service.
 // - Add logging.
 // - Return dataResponse from services?
