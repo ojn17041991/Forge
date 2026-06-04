@@ -1,9 +1,10 @@
-﻿using Forge.Commands.Enums;
-using Forge.Commands.Interfaces;
+﻿using Forge.Abstractions.Services;
+using Forge.Abstractions.Verbs.Commands;
+using Forge.Enums;
 using Forge.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Forge.Commands.Dependencies
+namespace Forge.Services
 {
     public class CommandFactory(IServiceProvider serviceProvider) : ICommandFactory
     {

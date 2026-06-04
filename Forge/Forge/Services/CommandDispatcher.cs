@@ -1,14 +1,15 @@
-﻿using Forge.Commands.Interfaces;
-using Forge.Executors.Interfaces;
+﻿using Forge.Abstractions.Services;
+using Forge.Abstractions.Verbs.Commands;
+using Forge.Abstractions.Verbs.Executors;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Forge.Commands.Dependencies
+namespace Forge.Services
 {
-    public class CommandExecutor(IServiceProvider serviceProvider) : ICommandExecutor
+    public class CommandDispatcher(IServiceProvider serviceProvider) : ICommandDispatcher
     {
         private readonly IServiceProvider serviceProvider = serviceProvider;
 
-        public bool Execute(ICommand command)
+        public bool Dispatch(ICommand command)
         {
             try
             {

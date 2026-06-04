@@ -1,15 +1,15 @@
-﻿using Forge.Commands.Dependencies;
-using Forge.Commands.Interfaces;
-using Forge.Commands.Models;
-using Forge.Executors.Interfaces;
-using Forge.Handlers.Dependencies;
+﻿using Forge.Abstractions.Services;
+using Forge.Abstractions.Verbs.Commands;
+using Forge.Abstractions.Verbs.Executors;
+using Forge.Commands.Spec;
+using Forge.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.AddSingleton<ICommandFactory, CommandFactory>();
-builder.Services.AddSingleton<ICommandExecutor, CommandExecutor>();
+builder.Services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
 
 builder.Services.AddTransient<ICommand, SpecCommand>();
 builder.Services.AddTransient<ICommandBuilder, SpecCommandBuilder>();
@@ -18,7 +18,7 @@ builder.Services.AddTransient<IExecutor, SpecExecutor>();
 var host = builder.Build();
 
 ICommandFactory commandFactory = host.Services.GetRequiredService<ICommandFactory>();
-ICommandExecutor commandExecutor = host.Services.GetRequiredService<ICommandExecutor>();
+ICommandDispatcher commandExecutor = host.Services.GetRequiredService<ICommandDispatcher>();
 
 // Step 1 - Receive input with args.
 // Handled by the framework.
@@ -31,7 +31,7 @@ if (command == null)
 }
 
 // Step 3 - Use the CommandExecutor to execute the Command.
-bool result = commandExecutor.Execute(command);
+bool result = commandExecutor.Dispatch(command);
 if (result == true)
 {
     return;
@@ -44,7 +44,6 @@ else
 // TODO:
 // - Seperate the workflow out into its own service?
 // - Use extension method for DI registration.
-// - Review project structure.
 // - Need to plug in the API and make things asynchronous. Needs its own service.
 // - Add logging.
 // - Return dataResponse from services?

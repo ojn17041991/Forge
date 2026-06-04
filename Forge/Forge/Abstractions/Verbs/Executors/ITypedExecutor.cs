@@ -1,7 +1,6 @@
-﻿using Forge.Commands.Interfaces;
-using Forge.Executors.Interfaces;
+﻿using Forge.Abstractions.Verbs.Commands;
 
-namespace Forge.Handlers.Abstract
+namespace Forge.Abstractions.Verbs.Executors
 {
     public interface ITypedExecutor<T> : IExecutor where T : ICommand
     {

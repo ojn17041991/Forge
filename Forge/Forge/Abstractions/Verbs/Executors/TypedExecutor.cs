@@ -1,8 +1,7 @@
-﻿using Forge.Commands.Enums;
-using Forge.Commands.Interfaces;
-using Forge.Handlers.Abstract;
+﻿using Forge.Abstractions.Verbs.Commands;
+using Forge.Enums;
 
-namespace Forge.Executors.Interfaces
+namespace Forge.Abstractions.Verbs.Executors
 {
     public abstract class TypedExecutor<T> : ITypedExecutor<T> where T : ICommand
     {

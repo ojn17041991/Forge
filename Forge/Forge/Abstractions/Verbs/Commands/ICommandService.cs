@@ -1,6 +1,6 @@
-﻿using Forge.Commands.Enums;
+﻿using Forge.Enums;
 
-namespace Forge.Commands.Interfaces
+namespace Forge.Abstractions.Verbs.Commands
 {
     public interface ICommandService
     {

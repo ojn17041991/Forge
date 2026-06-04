@@ -1,8 +1,7 @@
-﻿using Forge.Commands.Enums;
-using Forge.Commands.Models;
-using Forge.Executors.Interfaces;
+﻿using Forge.Abstractions.Verbs.Executors;
+using Forge.Enums;
 
-namespace Forge.Handlers.Dependencies
+namespace Forge.Commands.Spec
 {
     public class SpecExecutor() : TypedExecutor<SpecCommand>
     {

@@ -1,7 +1,7 @@
-﻿using Forge.Commands.Enums;
-using Forge.Commands.Interfaces;
+﻿using Forge.Abstractions.Verbs.Commands;
+using Forge.Enums;
 
-namespace Forge.Commands.Models
+namespace Forge.Commands.Spec
 {
     public record SpecCommand : ICommand
     {

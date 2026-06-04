@@ -1,6 +1,6 @@
-﻿using Forge.Commands.Interfaces;
+﻿using Forge.Abstractions.Verbs.Commands;
 
-namespace Forge.Executors.Interfaces
+namespace Forge.Abstractions.Verbs.Executors
 {
     public interface IExecutor : ICommandService
     {

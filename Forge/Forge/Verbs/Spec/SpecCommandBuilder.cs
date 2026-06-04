@@ -1,8 +1,7 @@
-﻿using Forge.Commands.Enums;
-using Forge.Commands.Interfaces;
-using Forge.Commands.Models;
+﻿using Forge.Abstractions.Verbs.Commands;
+using Forge.Enums;
 
-namespace Forge.Commands.Dependencies
+namespace Forge.Commands.Spec
 {
     public class SpecCommandBuilder : ICommandBuilder
     {
