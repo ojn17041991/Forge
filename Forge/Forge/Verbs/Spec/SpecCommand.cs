@@ -3,7 +3,7 @@ using Forge.Enums;
 
 namespace Forge.Commands.Spec
 {
-    public record SpecCommand : ICommand
+    public sealed record SpecCommand : ICommand
     {
         public CommandVerb Verb => CommandVerb.Spec;
 

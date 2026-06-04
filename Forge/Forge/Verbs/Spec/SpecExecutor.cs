@@ -1,5 +1,6 @@
 ﻿using Forge.Abstractions.Verbs.Executors;
 using Forge.Enums;
+using Forge.Results;
 
 namespace Forge.Commands.Spec
 {
@@ -7,9 +8,12 @@ namespace Forge.Commands.Spec
     {
         public override CommandVerb Verb => CommandVerb.Spec;
 
-        public override bool Execute(SpecCommand command)
+        public override ForgeResponse Execute(SpecCommand command)
         {
-            return true;
+            return new ForgeResponse
+            {
+                ResponseCode = ForgeResponseCode.Success
+            };
         }
     }
 }

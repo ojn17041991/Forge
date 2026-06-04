@@ -2,6 +2,7 @@
 using Forge.Abstractions.Verbs.Commands;
 using Forge.Enums;
 using Forge.Extensions;
+using Forge.Results;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Forge.Services
@@ -10,38 +11,58 @@ namespace Forge.Services
     {
         private readonly IServiceProvider serviceProvider = serviceProvider;
 
-        public ICommand? Build(string[] args)
+        public ForgeResponse<ICommand> Build(string[] args)
         {
             if (args.Length < 1)
             {
-                return null;
+                return new ForgeResponse<ICommand>
+                {
+                    ResponseCode = ForgeResponseCode.VerbMissing,
+                    Data = null
+                };
             }
 
             var verb = args[0].ToEnum<CommandVerb>();
             if (verb == null)
             {
-                return null;
+                return new ForgeResponse<ICommand>
+                {
+                    ResponseCode = ForgeResponseCode.VerbNotRecognized,
+                    Data = null
+                };
             }
 
             var commandBuilders = serviceProvider.GetServices<ICommandBuilder>();
             if (commandBuilders == null || commandBuilders.Count() == 0)
             {
-                return null;
+                return new ForgeResponse<ICommand>
+                {
+                    ResponseCode = ForgeResponseCode.Error,
+                    Data = null
+                };
             }
 
             var commandBuilder = commandBuilders.SingleOrDefault(x => x.Verb == verb);
             if (commandBuilder == null)
             {
-                return null;
+                return new ForgeResponse<ICommand>
+                {
+                    ResponseCode = ForgeResponseCode.Error,
+                    Data = null
+                };
             }
 
-            var command = commandBuilder.Build(args);
-            if (command == null)
+            var commandBuildResponse = commandBuilder.Build(args);
+            if (commandBuildResponse.Success == false)
             {
-                return null;
+                return new ForgeResponse<ICommand>
+                {
+                    ResponseCode = commandBuildResponse.ResponseCode,
+                    Data = null
+                };
             }
 
-            return command;
+            return commandBuildResponse;
         }
     }
 }

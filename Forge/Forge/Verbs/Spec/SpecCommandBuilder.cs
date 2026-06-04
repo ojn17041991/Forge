@@ -1,5 +1,6 @@
 ﻿using Forge.Abstractions.Verbs.Commands;
 using Forge.Enums;
+using Forge.Results;
 
 namespace Forge.Commands.Spec
 {
@@ -7,11 +8,24 @@ namespace Forge.Commands.Spec
     {
         public CommandVerb Verb => CommandVerb.Spec;
 
-        public ICommand Build(string[] args)
+        public ForgeResponse<ICommand> Build(string[] args)
         {
-            return new SpecCommand
+            if (args.Length < 3)
             {
-                FileName = args[2]
+                return new ForgeResponse<ICommand>
+                {
+                    ResponseCode = ForgeResponseCode.ArgumentsMissing,
+                    Data = null
+                };
+            }
+
+            return new ForgeResponse<ICommand>
+            {
+                ResponseCode = ForgeResponseCode.Success,
+                Data = new SpecCommand
+                {
+                    FileName = args[2]
+                }
             };
         }
     }

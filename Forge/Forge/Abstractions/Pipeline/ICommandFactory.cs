@@ -1,9 +1,10 @@
 ﻿using Forge.Abstractions.Verbs.Commands;
+using Forge.Results;
 
 namespace Forge.Abstractions.Services
 {
     public interface ICommandFactory
     {
-        ICommand? Build(string[] args);
+        ForgeResponse<ICommand> Build(string[] args);
     }
 }

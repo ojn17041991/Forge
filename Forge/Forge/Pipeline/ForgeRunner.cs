@@ -1,6 +1,7 @@
 ﻿using Forge.Abstractions.Pipeline;
 using Forge.Abstractions.Services;
 using Forge.Abstractions.Verbs.Commands;
+using Forge.Results;
 
 namespace Forge.Pipeline
 {
@@ -12,32 +13,40 @@ namespace Forge.Pipeline
         private readonly ICommandFactory commandFactory = commandFactory;
         private readonly ICommandDispatcher commandDispatcher = commandDispatcher;
 
-        public bool Run(string[] args)
+        public ForgeResponse Run(string[] args)
         {
             // Step 1 - Receive input with args.
             // Handled by the framework.
 
             // Step 2 - Get a command from the factory.
-            ICommand? command = commandFactory.Build(args);
-            if (command == null)
+            ForgeResponse<ICommand> commandBuildResponse = commandFactory.Build(args);
+            if (commandBuildResponse.Success == false)
             {
-                return false;
+                return new ForgeResponse
+                {
+                    ResponseCode = commandBuildResponse.ResponseCode
+                };
             }
 
             // Step 3 - Dispatch the command.
-            bool result = commandDispatcher.Dispatch(command);
-            if (result == false)
+            ICommand command = commandBuildResponse.Data!; // OJN: Not safe.
+            ForgeResponse commandDispatchResponse = commandDispatcher.Dispatch(command);
+            if (commandDispatchResponse.Success == false)
             {
-                return false;
+                return new ForgeResponse
+                {
+                    ResponseCode = commandBuildResponse.ResponseCode
+                };
             }
 
             // Step 4 - Return the result for output processing.
-            return true;
+            return commandDispatchResponse;
 
             // TODO:
-            // - Need to plug in the API and make things asynchronous. Needs its own service.
+            // - Need a factory for ForgeResponse.
+            // - Need a string resource lookup to handle console responses.
             // - Add logging.
-            // - Return dataResponse from services?
+            // - Need to plug in the API and make things asynchronous. Needs its own service.
 
             //using Microsoft.Extensions.Configuration;
             //using OpenAI.Chat;

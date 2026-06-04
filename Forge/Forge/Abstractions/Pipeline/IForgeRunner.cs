@@ -1,7 +1,9 @@
-﻿namespace Forge.Abstractions.Pipeline
+﻿using Forge.Results;
+
+namespace Forge.Abstractions.Pipeline
 {
     public interface IForgeRunner
     {
-        bool Run(string[] args);
+        ForgeResponse Run(string[] args);
     }
 }

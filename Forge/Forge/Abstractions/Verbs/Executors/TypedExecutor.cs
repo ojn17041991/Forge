@@ -1,5 +1,6 @@
 ﻿using Forge.Abstractions.Verbs.Commands;
 using Forge.Enums;
+using Forge.Results;
 
 namespace Forge.Abstractions.Verbs.Executors
 {
@@ -7,9 +8,9 @@ namespace Forge.Abstractions.Verbs.Executors
     {
         public abstract CommandVerb Verb { get; }
 
-        public abstract bool Execute(T command);
+        public abstract ForgeResponse Execute(T command);
 
-        public bool Execute(ICommand command)
+        public ForgeResponse Execute(ICommand command)
         {
             return Execute((T)command);
         }

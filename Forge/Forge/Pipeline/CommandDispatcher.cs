@@ -1,6 +1,8 @@
 ﻿using Forge.Abstractions.Services;
 using Forge.Abstractions.Verbs.Commands;
 using Forge.Abstractions.Verbs.Executors;
+using Forge.Enums;
+using Forge.Results;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Forge.Services
@@ -9,28 +11,33 @@ namespace Forge.Services
     {
         private readonly IServiceProvider serviceProvider = serviceProvider;
 
-        public bool Dispatch(ICommand command)
+        public ForgeResponse Dispatch(ICommand command)
         {
-            try
+            IEnumerable<IExecutor> commandExecutors = serviceProvider.GetServices<IExecutor>();
+            if (commandExecutors.Count() == 0)
             {
-                var commandExecutors = serviceProvider.GetServices<IExecutor>();
-                if (commandExecutors == null || commandExecutors.Count() == 0)
+                return new ForgeResponse
                 {
-                    return false;
-                }
-
-                var commandExecutor = commandExecutors.SingleOrDefault(x => x.Verb == command.Verb);
-                if (commandExecutor == null)
-                {
-                    return false;
-                }
-
-                return commandExecutor.Execute(command);
+                    ResponseCode = ForgeResponseCode.Error
+                };
             }
-            catch (InvalidOperationException)
+
+            IExecutor? commandExecutor = commandExecutors.SingleOrDefault(x => x.Verb == command.Verb);
+            if (commandExecutor == null)
             {
-                return false;
+                return new ForgeResponse
+                {
+                    ResponseCode = ForgeResponseCode.Error
+                };
             }
+
+            ForgeResponse commandExecutionResponse = commandExecutor.Execute(command);
+            if (commandExecutionResponse.Success == false)
+            {
+                // OJN: Redundant, but logging will be added later.
+            }
+
+            return commandExecutionResponse;
         }
     }
 }
