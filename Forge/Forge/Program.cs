@@ -1,54 +1,23 @@
-﻿using Forge.Abstractions.Services;
-using Forge.Abstractions.Verbs.Commands;
+﻿using Forge.Abstractions.Pipeline;
 using Forge.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+// Build the host with required dependencies.
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.RegisterDependencies();
 var host = builder.Build();
 
-ICommandFactory commandFactory = host.Services.GetRequiredService<ICommandFactory>();
-ICommandDispatcher commandExecutor = host.Services.GetRequiredService<ICommandDispatcher>();
+// Get the pipeline entry point and run Forge.
+IForgeRunner forgeRunner = host.Services.GetRequiredService<IForgeRunner>();
+bool result = forgeRunner.Run(args);
 
-// Step 1 - Receive input with args.
-// Handled by the framework.
-
-// Step 2 - Use the CommandFactory to convert the input data into a Command model.
-ICommand? command = commandFactory.Build(args);
-if (command == null)
-{
-    return;
-}
-
-// Step 3 - Use the CommandExecutor to execute the Command.
-bool result = commandExecutor.Dispatch(command);
+// Process the result (Build out later).
 if (result == true)
 {
-    return;
+    Console.WriteLine("Worked.");
 }
 else
 {
-    return;
+    Console.WriteLine("Didn't work.");
 }
-
-// TODO:
-// - Seperate the workflow out into its own service?
-// - Need to plug in the API and make things asynchronous. Needs its own service.
-// - Add logging.
-// - Return dataResponse from services?
-
-//using Microsoft.Extensions.Configuration;
-//using OpenAI.Chat;
-
-//var builder = new ConfigurationBuilder()
-//    .AddUserSecrets<Program>()
-//    .Build();
-
-//var key = builder["OpenAi:SecretKey"];
-
-//ChatClient client = new("gpt-4.1-mini", key);
-
-//ChatCompletion completion = client.CompleteChat("Say 'this is a test.'");
-
-//Console.WriteLine($"[ASSISTANT]: {completion.Content[0].Text}");
