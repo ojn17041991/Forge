@@ -1,5 +1,6 @@
 ﻿using Forge.Abstractions.Verbs.Executors;
 using Forge.Enums;
+using Forge.Responses;
 using Forge.Results;
 
 namespace Forge.Commands.Spec
@@ -10,10 +11,7 @@ namespace Forge.Commands.Spec
 
         public override ForgeResponse Execute(SpecCommand command)
         {
-            return new ForgeResponse
-            {
-                ResponseCode = ForgeResponseCode.Success
-            };
+            return ForgeResponseBuilder.Response(ForgeResponseCode.Success);
         }
     }
 }

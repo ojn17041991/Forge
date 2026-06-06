@@ -2,6 +2,7 @@
 using Forge.Abstractions.Verbs.Commands;
 using Forge.Abstractions.Verbs.Executors;
 using Forge.Enums;
+using Forge.Responses;
 using Forge.Results;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,19 +17,13 @@ namespace Forge.Services
             IEnumerable<IExecutor> commandExecutors = serviceProvider.GetServices<IExecutor>();
             if (commandExecutors.Count() == 0)
             {
-                return new ForgeResponse
-                {
-                    ResponseCode = ForgeResponseCode.Error
-                };
+                return ForgeResponseBuilder.Response(ForgeResponseCode.Error);
             }
 
             IExecutor? commandExecutor = commandExecutors.SingleOrDefault(x => x.Verb == command.Verb);
             if (commandExecutor == null)
             {
-                return new ForgeResponse
-                {
-                    ResponseCode = ForgeResponseCode.Error
-                };
+                return ForgeResponseBuilder.Response(ForgeResponseCode.Error);
             }
 
             ForgeResponse commandExecutionResponse = commandExecutor.Execute(command);

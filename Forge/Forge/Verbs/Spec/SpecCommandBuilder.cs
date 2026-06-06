@@ -1,5 +1,6 @@
 ﻿using Forge.Abstractions.Verbs.Commands;
 using Forge.Enums;
+using Forge.Responses;
 using Forge.Results;
 
 namespace Forge.Commands.Spec
@@ -12,21 +13,15 @@ namespace Forge.Commands.Spec
         {
             if (args.Length < 3)
             {
-                return new ForgeResponse<ICommand>
-                {
-                    ResponseCode = ForgeResponseCode.ArgumentsMissing,
-                    Data = null
-                };
+                return ForgeResponseBuilder.Response<ICommand>(ForgeResponseCode.ArgumentsMissing);
             }
 
-            return new ForgeResponse<ICommand>
+            ICommand command = new SpecCommand
             {
-                ResponseCode = ForgeResponseCode.Success,
-                Data = new SpecCommand
-                {
-                    FileName = args[2]
-                }
+                FileName = args[2]
             };
+
+            return ForgeResponseBuilder.Response(command, ForgeResponseCode.Success);
         }
     }
 }

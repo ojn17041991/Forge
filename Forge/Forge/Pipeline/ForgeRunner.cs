@@ -1,6 +1,7 @@
 ﻿using Forge.Abstractions.Pipeline;
 using Forge.Abstractions.Services;
 using Forge.Abstractions.Verbs.Commands;
+using Forge.Responses;
 using Forge.Results;
 
 namespace Forge.Pipeline
@@ -22,10 +23,7 @@ namespace Forge.Pipeline
             ForgeResponse<ICommand> commandBuildResponse = commandFactory.Build(args);
             if (commandBuildResponse.Success == false)
             {
-                return new ForgeResponse
-                {
-                    ResponseCode = commandBuildResponse.ResponseCode
-                };
+                return ForgeResponseBuilder.Response(commandBuildResponse.ResponseCode);
             }
 
             // Step 3 - Dispatch the command.
@@ -33,20 +31,17 @@ namespace Forge.Pipeline
             ForgeResponse commandDispatchResponse = commandDispatcher.Dispatch(command);
             if (commandDispatchResponse.Success == false)
             {
-                return new ForgeResponse
-                {
-                    ResponseCode = commandBuildResponse.ResponseCode
-                };
+                return ForgeResponseBuilder.Response(commandBuildResponse.ResponseCode);
             }
 
             // Step 4 - Return the result for output processing.
             return commandDispatchResponse;
 
             // TODO:
-            // - Need a factory for ForgeResponse.
             // - Need a string resource lookup to handle console responses.
             // - Add logging.
             // - Need to plug in the API and make things asynchronous. Needs its own service.
+            // - Better validation in the command parser.
 
             //using Microsoft.Extensions.Configuration;
             //using OpenAI.Chat;

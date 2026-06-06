@@ -4,7 +4,6 @@ namespace Forge.Results
 {
     public sealed record ForgeResponse : BaseForgeResponse
     {
-
     }
 
     public sealed record ForgeResponse<T> : BaseForgeResponse

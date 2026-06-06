@@ -2,6 +2,7 @@
 using Forge.Abstractions.Verbs.Commands;
 using Forge.Enums;
 using Forge.Extensions;
+using Forge.Responses;
 using Forge.Results;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,51 +16,31 @@ namespace Forge.Services
         {
             if (args.Length < 1)
             {
-                return new ForgeResponse<ICommand>
-                {
-                    ResponseCode = ForgeResponseCode.VerbMissing,
-                    Data = null
-                };
+                return ForgeResponseBuilder.Response<ICommand>(ForgeResponseCode.VerbMissing);
             }
 
             var verb = args[0].ToEnum<CommandVerb>();
             if (verb == null)
             {
-                return new ForgeResponse<ICommand>
-                {
-                    ResponseCode = ForgeResponseCode.VerbNotRecognized,
-                    Data = null
-                };
+                return ForgeResponseBuilder.Response<ICommand>(ForgeResponseCode.VerbNotRecognized);
             }
 
             var commandBuilders = serviceProvider.GetServices<ICommandBuilder>();
             if (commandBuilders == null || commandBuilders.Count() == 0)
             {
-                return new ForgeResponse<ICommand>
-                {
-                    ResponseCode = ForgeResponseCode.Error,
-                    Data = null
-                };
+                return ForgeResponseBuilder.Response<ICommand>(ForgeResponseCode.Error);
             }
 
             var commandBuilder = commandBuilders.SingleOrDefault(x => x.Verb == verb);
             if (commandBuilder == null)
             {
-                return new ForgeResponse<ICommand>
-                {
-                    ResponseCode = ForgeResponseCode.Error,
-                    Data = null
-                };
+                return ForgeResponseBuilder.Response<ICommand>(ForgeResponseCode.Error);
             }
 
             var commandBuildResponse = commandBuilder.Build(args);
             if (commandBuildResponse.Success == false)
             {
-                return new ForgeResponse<ICommand>
-                {
-                    ResponseCode = commandBuildResponse.ResponseCode,
-                    Data = null
-                };
+                return ForgeResponseBuilder.Response<ICommand>(commandBuildResponse.ResponseCode);
             }
 
             return commandBuildResponse;
