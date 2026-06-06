@@ -4,6 +4,6 @@ namespace Forge.Abstractions.Pipeline
 {
     public interface IForgeRunner
     {
-        ForgeResponse Run(string[] args);
+        Task<ForgeResponse> Run(string[] args);
     }
 }

@@ -12,7 +12,7 @@ namespace Forge.Infrastructure.Pipeline
     {
         private readonly IServiceProvider serviceProvider = serviceProvider;
 
-        public ForgeResponse Dispatch(ICommand command)
+        public async Task<ForgeResponse> Dispatch(ICommand command)
         {
             IEnumerable<IExecutor> commandExecutors = serviceProvider.GetServices<IExecutor>();
             if (commandExecutors.Count() == 0)
@@ -26,7 +26,7 @@ namespace Forge.Infrastructure.Pipeline
                 return ForgeResponseBuilder.Response(ForgeResponseCode.Error);
             }
 
-            ForgeResponse<string> commandExecutionResponse = commandExecutor.Execute(command);
+            ForgeResponse<string> commandExecutionResponse = await commandExecutor.Execute(command);
             if (commandExecutionResponse.Success == false)
             {
                 // Redundant, but will log here later.

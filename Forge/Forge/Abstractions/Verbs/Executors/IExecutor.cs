@@ -6,6 +6,6 @@ namespace Forge.Abstractions.Verbs.Executors
 {
     public interface IExecutor : IVerb
     {
-        ForgeResponse<string> Execute(ICommand command);
+        Task<ForgeResponse<string>> Execute(ICommand command);
     }
 }

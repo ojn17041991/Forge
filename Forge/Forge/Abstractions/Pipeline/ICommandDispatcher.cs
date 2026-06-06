@@ -5,6 +5,6 @@ namespace Forge.Abstractions.Services
 {
     public interface ICommandDispatcher
     {
-        ForgeResponse Dispatch(ICommand command);
+        Task<ForgeResponse> Dispatch(ICommand command);
     }
 }

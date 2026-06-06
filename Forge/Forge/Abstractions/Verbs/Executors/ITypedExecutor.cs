@@ -5,6 +5,6 @@ namespace Forge.Abstractions.Verbs.Executors
 {
     public interface ITypedExecutor<T> : IExecutor where T : ICommand
     {
-        ForgeResponse<string> Execute(T command);
+        Task<ForgeResponse<string>> Execute(T command);
     }
 }

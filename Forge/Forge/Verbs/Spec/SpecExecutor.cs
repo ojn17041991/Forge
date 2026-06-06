@@ -1,4 +1,5 @@
-﻿using Forge.Abstractions.Verbs.Executors;
+﻿using Forge.Abstractions.OpenAi;
+using Forge.Abstractions.Verbs.Executors;
 using Forge.Abstractions.Verbs.Prompts;
 using Forge.Enums;
 using Forge.Responses;
@@ -6,13 +7,17 @@ using Forge.Results;
 
 namespace Forge.Commands.Spec
 {
-    public class SpecExecutor(IPromptReader promptReader) : TypedExecutor<SpecCommand>
+    public class SpecExecutor(
+        IPromptReader promptReader,
+        IOpenAiService openAiService
+    ) : TypedExecutor<SpecCommand>
     {
         private readonly IPromptReader promptReader = promptReader;
+        private readonly IOpenAiService openAiService = openAiService;
 
         public override CommandVerb Verb => CommandVerb.Spec;
 
-        public override ForgeResponse<string> Execute(SpecCommand command)
+        public async override Task<ForgeResponse<string>> Execute(SpecCommand command)
         {
             ForgeResponse<string> prompt = promptReader.Read(Verb);
             if (prompt.Success == false)
@@ -20,18 +25,13 @@ namespace Forge.Commands.Spec
                 return ForgeResponseBuilder.Response<string>(ForgeResponseCode.Error);
             }
 
-            //using Microsoft.Extensions.Configuration;
-            //using OpenAI.Chat;
+            ForgeResponse<string> openAiResponse = await openAiService.Speak(prompt.Data!);
+            if (openAiResponse.Success == false)
+            {
+                return ForgeResponseBuilder.Response<string>(ForgeResponseCode.Error);
+            }
 
-            //var key = builder["OpenAi:SecretKey"];
-
-            //ChatClient client = new("gpt-4.1-mini", key);
-
-            //ChatCompletion completion = client.CompleteChat("Say 'this is a test.'");
-
-            //Console.WriteLine($"[ASSISTANT]: {completion.Content[0].Text}");
-
-            return ForgeResponseBuilder.Response<string>(string.Empty, ForgeResponseCode.Success); // OJN: Need OpenAiService to return actual data.
+            return ForgeResponseBuilder.Response(openAiResponse.Data!, ForgeResponseCode.Success);
         }
     }
 }
