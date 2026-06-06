@@ -36,27 +36,6 @@ namespace Forge.Pipeline
 
             // Step 4 - Return the result for output processing.
             return commandDispatchResponse;
-
-            // TODO:
-            // - Need a string resource lookup to handle console responses.
-            // - Add logging.
-            // - Need to plug in the API and make things asynchronous. Needs its own service.
-            // - Better validation in the command parser.
-
-            //using Microsoft.Extensions.Configuration;
-            //using OpenAI.Chat;
-
-            //var builder = new ConfigurationBuilder()
-            //    .AddUserSecrets<Program>()
-            //    .Build();
-
-            //var key = builder["OpenAi:SecretKey"];
-
-            //ChatClient client = new("gpt-4.1-mini", key);
-
-            //ChatCompletion completion = client.CompleteChat("Say 'this is a test.'");
-
-            //Console.WriteLine($"[ASSISTANT]: {completion.Content[0].Text}");
         }
     }
 }
