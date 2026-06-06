@@ -1,5 +1,6 @@
 ﻿using Forge.Abstractions.Pipeline;
 using Forge.Extensions;
+using Forge.Responses;
 using Forge.Results;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,11 +15,5 @@ IForgeRunner forgeRunner = host.Services.GetRequiredService<IForgeRunner>();
 ForgeResponse forgeRunResponse = forgeRunner.Run(args);
 
 // Process the result (Build out later).
-if (forgeRunResponse.Success == true)
-{
-    Console.WriteLine("Worked.");
-}
-else
-{
-    Console.WriteLine("Didn't work.");
-}
+string message = ForgeResponseMessages.Get(forgeRunResponse.ResponseCode);
+Console.Write(message);
