@@ -1,8 +1,9 @@
-﻿using Forge.Results;
+﻿using Forge.Abstractions.Verbs.Verbs;
+using Forge.Results;
 
 namespace Forge.Abstractions.Verbs.Commands
 {
-    public interface ICommandBuilder : ICommandService
+    public interface ICommandBuilder : IVerb
     {
         ForgeResponse<ICommand> Build(string[] args);
     }

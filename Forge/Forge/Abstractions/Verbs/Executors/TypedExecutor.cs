@@ -8,9 +8,9 @@ namespace Forge.Abstractions.Verbs.Executors
     {
         public abstract CommandVerb Verb { get; }
 
-        public abstract ForgeResponse Execute(T command);
+        public abstract ForgeResponse<string> Execute(T command);
 
-        public ForgeResponse Execute(ICommand command)
+        public ForgeResponse<string> Execute(ICommand command)
         {
             return Execute((T)command);
         }

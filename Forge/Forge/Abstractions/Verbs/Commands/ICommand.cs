@@ -1,6 +1,8 @@
-﻿namespace Forge.Abstractions.Verbs.Commands
+﻿using Forge.Abstractions.Verbs.Verbs;
+
+namespace Forge.Abstractions.Verbs.Commands
 {
-    public interface ICommand : ICommandService
+    public interface ICommand : IVerb
     {
 
     }

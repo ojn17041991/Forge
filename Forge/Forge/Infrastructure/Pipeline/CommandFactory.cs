@@ -6,7 +6,7 @@ using Forge.Responses;
 using Forge.Results;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Forge.Services
+namespace Forge.Infrastructure.Pipeline
 {
     public class CommandFactory(IServiceProvider serviceProvider) : ICommandFactory
     {

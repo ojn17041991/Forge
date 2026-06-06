@@ -6,7 +6,7 @@ using Forge.Responses;
 using Forge.Results;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Forge.Services
+namespace Forge.Infrastructure.Pipeline
 {
     public class CommandDispatcher(IServiceProvider serviceProvider) : ICommandDispatcher
     {
@@ -26,13 +26,13 @@ namespace Forge.Services
                 return ForgeResponseBuilder.Response(ForgeResponseCode.Error);
             }
 
-            ForgeResponse commandExecutionResponse = commandExecutor.Execute(command);
+            ForgeResponse<string> commandExecutionResponse = commandExecutor.Execute(command);
             if (commandExecutionResponse.Success == false)
             {
-                // Redundant, but logging will be added later.
+                // Redundant, but will log here later.
             }
 
-            return commandExecutionResponse;
+            return ForgeResponseBuilder.Response(commandExecutionResponse.ResponseCode);
         }
     }
 }

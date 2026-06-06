@@ -4,7 +4,7 @@ using Forge.Abstractions.Verbs.Commands;
 using Forge.Responses;
 using Forge.Results;
 
-namespace Forge.Pipeline
+namespace Forge.Infrastructure.Pipeline
 {
     public class ForgeRunner(
         ICommandFactory commandFactory,
