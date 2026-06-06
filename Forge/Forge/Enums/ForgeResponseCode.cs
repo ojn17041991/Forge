@@ -2,12 +2,12 @@
 {
     public enum ForgeResponseCode
     {
-        Success,
-
         ArgumentsMissing,
+        Error,
+        FileExists,
+        FileMissing,
+        Success,
         VerbMissing,
-        VerbNotRecognized,
-
-        Error
+        VerbNotRecognized
     }
 }

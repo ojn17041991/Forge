@@ -12,7 +12,14 @@ var host = builder.Build();
 
 // Get the pipeline entry point and run Forge.
 IForgeRunner forgeRunner = host.Services.GetRequiredService<IForgeRunner>();
-ForgeResponse forgeRunResponse = await forgeRunner.Run(args);
+ForgeResponse<string> forgeRunResponse = await forgeRunner.Run(args);
 
-// Process the result.
-Console.Write(ForgeResponseMessages.Get(forgeRunResponse.ResponseCode));
+// Print the result to console.
+if (forgeRunResponse.Success == false)
+{
+    Console.Write(ForgeResponseMessages.Get(forgeRunResponse.ResponseCode));
+}
+else
+{
+    Console.Write(forgeRunResponse.Data!);
+}

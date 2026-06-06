@@ -12,18 +12,18 @@ namespace Forge.Infrastructure.Pipeline
     {
         private readonly IServiceProvider serviceProvider = serviceProvider;
 
-        public async Task<ForgeResponse> Dispatch(ICommand command)
+        public async Task<ForgeResponse<string>> Dispatch(ICommand command)
         {
             IEnumerable<IExecutor> commandExecutors = serviceProvider.GetServices<IExecutor>();
             if (commandExecutors.Count() == 0)
             {
-                return ForgeResponseBuilder.Response(ForgeResponseCode.Error);
+                return ForgeResponseBuilder.Response<string>(ForgeResponseCode.Error);
             }
 
             IExecutor? commandExecutor = commandExecutors.SingleOrDefault(x => x.Verb == command.Verb);
             if (commandExecutor == null)
             {
-                return ForgeResponseBuilder.Response(ForgeResponseCode.Error);
+                return ForgeResponseBuilder.Response<string>(ForgeResponseCode.Error);
             }
 
             ForgeResponse<string> commandExecutionResponse = await commandExecutor.Execute(command);
@@ -32,7 +32,7 @@ namespace Forge.Infrastructure.Pipeline
                 // Redundant, but will log here later.
             }
 
-            return ForgeResponseBuilder.Response(commandExecutionResponse.ResponseCode);
+            return ForgeResponseBuilder.Response(commandExecutionResponse.Data!, commandExecutionResponse.ResponseCode);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Forge.Infrastructure.Pipeline
         private readonly ICommandFactory commandFactory = commandFactory;
         private readonly ICommandDispatcher commandDispatcher = commandDispatcher;
 
-        public async Task<ForgeResponse> Run(string[] args)
+        public async Task<ForgeResponse<string>> Run(string[] args)
         {
             // Step 1 - Receive input with args.
             // Handled by the framework.
@@ -23,15 +23,15 @@ namespace Forge.Infrastructure.Pipeline
             ForgeResponse<ICommand> commandBuildResponse = commandFactory.Build(args);
             if (commandBuildResponse.Success == false)
             {
-                return ForgeResponseBuilder.Response(commandBuildResponse.ResponseCode);
+                return ForgeResponseBuilder.Response<string>(commandBuildResponse.ResponseCode);
             }
 
             // Step 3 - Dispatch the command.
             ICommand command = commandBuildResponse.Data!;
-            ForgeResponse commandDispatchResponse = await commandDispatcher.Dispatch(command);
+            ForgeResponse<string> commandDispatchResponse = await commandDispatcher.Dispatch(command);
             if (commandDispatchResponse.Success == false)
             {
-                return ForgeResponseBuilder.Response(commandDispatchResponse.ResponseCode);
+                return ForgeResponseBuilder.Response<string>(commandDispatchResponse.ResponseCode);
             }
 
             // Step 4 - Return the result for output processing.

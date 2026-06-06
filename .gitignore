@@ -16,3 +16,6 @@ obj/
 
 # VS Code (optional)
 .vscode/
+
+# Forge
+.forge
