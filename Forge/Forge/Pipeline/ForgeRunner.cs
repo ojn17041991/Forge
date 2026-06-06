@@ -27,11 +27,11 @@ namespace Forge.Pipeline
             }
 
             // Step 3 - Dispatch the command.
-            ICommand command = commandBuildResponse.Data!; // OJN: Not safe.
+            ICommand command = commandBuildResponse.Data!;
             ForgeResponse commandDispatchResponse = commandDispatcher.Dispatch(command);
             if (commandDispatchResponse.Success == false)
             {
-                return ForgeResponseBuilder.Response(commandBuildResponse.ResponseCode);
+                return ForgeResponseBuilder.Response(commandDispatchResponse.ResponseCode);
             }
 
             // Step 4 - Return the result for output processing.

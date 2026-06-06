@@ -29,7 +29,7 @@ namespace Forge.Services
             ForgeResponse commandExecutionResponse = commandExecutor.Execute(command);
             if (commandExecutionResponse.Success == false)
             {
-                // OJN: Redundant, but logging will be added later.
+                // Redundant, but logging will be added later.
             }
 
             return commandExecutionResponse;

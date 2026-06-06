@@ -10,16 +10,32 @@ namespace Forge.Responses
             ResponseCode = responseCode
         };
 
-        public static ForgeResponse<T> Response<T>(T data, ForgeResponseCode responseCode) => new ForgeResponse<T>
+        public static ForgeResponse<T> Response<T>(T data, ForgeResponseCode responseCode)
         {
-            Data = data,
-            ResponseCode = responseCode
-        };
+            if (data == null && responseCode == ForgeResponseCode.Success)
+            {
+                throw new InvalidOperationException("Success responses must contain data.");
+            }
 
-        public static ForgeResponse<T> Response<T>(ForgeResponseCode responseCode) => new ForgeResponse<T>
+            return new ForgeResponse<T>
+            {
+                Data = data,
+                ResponseCode = responseCode
+            };
+        }
+
+        public static ForgeResponse<T> Response<T>(ForgeResponseCode responseCode)
         {
-            Data = default,
-            ResponseCode = responseCode
-        };
+            if (responseCode == ForgeResponseCode.Success)
+            {
+                throw new InvalidOperationException("Success responses must contain data.");
+            }
+
+            return new ForgeResponse<T>
+            {
+                Data = default,
+                ResponseCode = responseCode
+            };
+        }
     }
 }
