@@ -16,6 +16,11 @@ namespace Forge.OpenAi
             string? apiVersion = configuration["OpenAi:Version"] ?? throw new InvalidOperationException("OpenAi:Version must be present in configuration.");
             string? apiKey = configuration["OpenAi:SecretKey"] ?? throw new InvalidOperationException("OpenAi:SecretKey must be present in configuration.");
 
+            if (apiKey == "IN SECRETS")
+            {
+                throw new InvalidOperationException("OpenAi:SecretKey must be present in secret provider.");
+            }
+
             client = new ChatClient(apiVersion, apiKey);
         }
 

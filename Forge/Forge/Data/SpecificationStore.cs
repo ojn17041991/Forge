@@ -6,15 +6,15 @@ using Forge.Results;
 
 namespace Forge.Data
 {
-    public class DataStore : IDataStore
+    public class SpecificationStore : ISpecificationStore
     {
-        public async Task<ForgeResponse<string>> GetSpecification(string specificationId)
+        public async Task<ForgeResponse<string>> Get(string id)
         {
             string filePath = Path.Combine(
                 Directory.GetCurrentDirectory(),
                 ForgeConstants.ForgeDirectory,
                 ForgeConstants.SpecDirectory,
-                specificationId + ForgeConstants.ForgeSpecExtension
+                id + ForgeConstants.ForgeSpecExtension
             );
 
             if (File.Exists(filePath) == true)
@@ -27,7 +27,7 @@ namespace Forge.Data
             return ForgeResponseBuilder.Response(specificationContent, ForgeResponseCode.Success);
         }
 
-        public async Task<ForgeResponse> SaveSpecification(string specificationId, string specificationContent)
+        public async Task<ForgeResponse> Save(string id, string content)
         {
             string directory = Directory.GetCurrentDirectory();
 
@@ -50,14 +50,14 @@ namespace Forge.Data
                 Directory.CreateDirectory(directory);
             }
 
-            string filePath = Path.Combine(directory, specificationId + ForgeConstants.ForgeSpecExtension);
+            string filePath = Path.Combine(directory, id + ForgeConstants.ForgeSpecExtension);
 
             if (File.Exists(filePath) == true)
             {
                 return ForgeResponseBuilder.Response(ForgeResponseCode.FileExists);
             }
 
-            await File.WriteAllTextAsync(specificationContent, filePath);
+            await File.WriteAllTextAsync(filePath, content);
 
             return ForgeResponseBuilder.Response(ForgeResponseCode.Success);
         }

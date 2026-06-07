@@ -1,10 +1,11 @@
-﻿using Forge.Abstractions.OpenAi;
-using Forge.Abstractions.Pipeline;
-using Forge.Abstractions.Services;
+﻿using Forge.Abstractions.Data;
+using Forge.Abstractions.Infrastructure.Pipeline;
+using Forge.Abstractions.OpenAi;
 using Forge.Abstractions.Verbs.Commands;
 using Forge.Abstractions.Verbs.Executors;
 using Forge.Abstractions.Verbs.Prompts;
 using Forge.Commands.Spec;
+using Forge.Data;
 using Forge.Infrastructure.Pipeline;
 using Forge.Infrastructure.Prompts;
 using Forge.OpenAi;
@@ -20,6 +21,7 @@ namespace Forge.Extensions
             services.AddSingleton<IForgeRunner, ForgeRunner>();
             services.AddSingleton<ICommandFactory, CommandFactory>();
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
+            services.AddSingleton<ISpecificationStore, SpecificationStore>();
             services.AddSingleton<IPromptRenderer, PromptRenderer>();
             services.AddSingleton<IPromptRepository, PromptRepository>();
             services.AddSingleton<IOpenAiService, OpenAiService>();

@@ -1,7 +1,7 @@
 ﻿using Forge.Abstractions.Verbs.Commands;
 using Forge.Results;
 
-namespace Forge.Abstractions.Services
+namespace Forge.Abstractions.Infrastructure.Pipeline
 {
     public interface ICommandFactory
     {

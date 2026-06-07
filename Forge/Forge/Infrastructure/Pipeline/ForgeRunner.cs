@@ -1,5 +1,4 @@
-﻿using Forge.Abstractions.Pipeline;
-using Forge.Abstractions.Services;
+﻿using Forge.Abstractions.Infrastructure.Pipeline;
 using Forge.Abstractions.Verbs.Commands;
 using Forge.Responses;
 using Forge.Results;

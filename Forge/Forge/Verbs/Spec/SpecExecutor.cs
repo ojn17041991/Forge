@@ -12,13 +12,13 @@ namespace Forge.Commands.Spec
         IPromptRenderer promptRenderer,
         IPromptRepository promptRepository,
         IOpenAiService openAiService,
-        IDataStore dataStore
+        ISpecificationStore dataStore
     ) : TypedExecutor<SpecCommand>
     {
         private readonly IPromptRenderer promptRenderer = promptRenderer;
         private readonly IPromptRepository promptRepository = promptRepository;
         private readonly IOpenAiService openAiService = openAiService;
-        private readonly IDataStore dataStore = dataStore;
+        private readonly ISpecificationStore dataStore = dataStore;
 
         private const string promptCodeWildcard = "CODE";
 
@@ -61,7 +61,7 @@ namespace Forge.Commands.Spec
 
             string specificationId = Guid.NewGuid().ToString().Replace("-", string.Empty);
 
-            ForgeResponse dataStoreResponse = await dataStore.SaveSpecification(specificationId, openAiResponse.Data!);
+            ForgeResponse dataStoreResponse = await dataStore.Save(specificationId, openAiResponse.Data!);
             if (dataStoreResponse.Success == false)
             {
                 return ForgeResponseBuilder.Response<string>(dataStoreResponse.ResponseCode);

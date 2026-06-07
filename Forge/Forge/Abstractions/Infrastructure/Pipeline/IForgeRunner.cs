@@ -1,6 +1,6 @@
 ﻿using Forge.Results;
 
-namespace Forge.Abstractions.Pipeline
+namespace Forge.Abstractions.Infrastructure.Pipeline
 {
     public interface IForgeRunner
     {

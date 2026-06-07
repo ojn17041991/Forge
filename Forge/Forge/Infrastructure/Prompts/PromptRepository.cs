@@ -10,6 +10,8 @@ namespace Forge.Infrastructure.Prompts
     {
         private readonly IServiceProvider serviceProvider = serviceProvider;
 
+        private const string promptDirectory = "Prompts";
+
         public ForgeResponse<string> Read(CommandVerb verb)
         {
             IEnumerable<IPrompt> commandPrompts = serviceProvider.GetServices<IPrompt>();
@@ -24,12 +26,18 @@ namespace Forge.Infrastructure.Prompts
                 return ForgeResponseBuilder.Response<string>(ForgeResponseCode.Error);
             }
 
-            if (File.Exists(commandPrompt.Path) == false)
+            string filePath = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                promptDirectory,
+                commandPrompt.Path
+            );
+
+            if (File.Exists(filePath) == false)
             {
                 return ForgeResponseBuilder.Response<string>(ForgeResponseCode.Error);
             }
 
-            string fileContent = File.ReadAllText(commandPrompt.Path);
+            string fileContent = File.ReadAllText(filePath);
 
             return ForgeResponseBuilder.Response(fileContent, ForgeResponseCode.Success);
         }
