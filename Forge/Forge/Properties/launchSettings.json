@@ -2,7 +2,7 @@
   "profiles": {
     "Forge": {
       "commandName": "Project",
-      "commandLineArgs": "spec --filename myfile.md"
+      "commandLineArgs": "spec --filepath ../../../../PromptLibrary/Inputs/CalculatePremium.md"
     }
   }
 }
