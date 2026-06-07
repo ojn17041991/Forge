@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Forge.Infrastructure.Prompts
 {
-    public class PromptReader(IServiceProvider serviceProvider) : IPromptReader
+    public class PromptRepository(IServiceProvider serviceProvider) : IPromptRepository
     {
         private readonly IServiceProvider serviceProvider = serviceProvider;
 
@@ -24,17 +24,14 @@ namespace Forge.Infrastructure.Prompts
                 return ForgeResponseBuilder.Response<string>(ForgeResponseCode.Error);
             }
 
-            try
-            {
-                return ForgeResponseBuilder.Response(
-                    File.ReadAllText(commandPrompt.Path),
-                    ForgeResponseCode.Success
-                );
-            }
-            catch
+            if (File.Exists(commandPrompt.Path) == false)
             {
                 return ForgeResponseBuilder.Response<string>(ForgeResponseCode.Error);
             }
+
+            string fileContent = File.ReadAllText(commandPrompt.Path);
+
+            return ForgeResponseBuilder.Response(fileContent, ForgeResponseCode.Success);
         }
     }
 }

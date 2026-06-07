@@ -7,6 +7,6 @@ namespace Forge.Commands.Spec
     {
         public CommandVerb Verb => CommandVerb.Spec;
 
-        public required string FileName;
+        public required string FilePath;
     }
 }

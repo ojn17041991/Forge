@@ -9,26 +9,49 @@ using Forge.Results;
 namespace Forge.Commands.Spec
 {
     public class SpecExecutor(
-        IPromptReader promptReader,
+        IPromptRenderer promptRenderer,
+        IPromptRepository promptRepository,
         IOpenAiService openAiService,
         IDataStore dataStore
     ) : TypedExecutor<SpecCommand>
     {
-        private readonly IPromptReader promptReader = promptReader;
+        private readonly IPromptRenderer promptRenderer = promptRenderer;
+        private readonly IPromptRepository promptRepository = promptRepository;
         private readonly IOpenAiService openAiService = openAiService;
         private readonly IDataStore dataStore = dataStore;
+
+        private const string promptCodeWildcard = "CODE";
 
         public override CommandVerb Verb => CommandVerb.Spec;
 
         public async override Task<ForgeResponse<string>> Execute(SpecCommand command)
         {
-            ForgeResponse<string> prompt = promptReader.Read(Verb);
+            ForgeResponse<string> prompt = promptRepository.Read(Verb);
             if (prompt.Success == false)
             {
                 return ForgeResponseBuilder.Response<string>(prompt.ResponseCode);
             }
 
-            // OJN: The input data needs to be read using command.FilePath, then appended into the prompt. DataStore?
+            if (File.Exists(command.FilePath) == false)
+            {
+                return ForgeResponseBuilder.Response<string>(ForgeResponseCode.FileMissing);
+            }
+
+            string fileContent = File.ReadAllText(command.FilePath);
+
+            IDictionary<string, string> renderArguments = new Dictionary<string, string>
+            {
+                {
+                    promptCodeWildcard,
+                    fileContent
+                }
+            };
+
+            ForgeResponse<string> promptRenderResponse = promptRenderer.Render(prompt.Data!, renderArguments);
+            if (promptRenderResponse.Success == false)
+            {
+                return ForgeResponseBuilder.Response<string>(promptRenderResponse.ResponseCode);
+            }
 
             ForgeResponse<string> openAiResponse = await openAiService.Speak(prompt.Data!);
             if (openAiResponse.Success == false)

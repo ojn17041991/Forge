@@ -18,7 +18,7 @@ namespace Forge.Commands.Spec
 
             ICommand command = new SpecCommand
             {
-                FileName = args[2]
+                FilePath = args[2]
             };
 
             return ForgeResponseBuilder.Response(command, ForgeResponseCode.Success);

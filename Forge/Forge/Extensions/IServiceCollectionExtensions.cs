@@ -20,7 +20,8 @@ namespace Forge.Extensions
             services.AddSingleton<IForgeRunner, ForgeRunner>();
             services.AddSingleton<ICommandFactory, CommandFactory>();
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
-            services.AddSingleton<IPromptReader, PromptReader>();
+            services.AddSingleton<IPromptRenderer, PromptRenderer>();
+            services.AddSingleton<IPromptRepository, PromptRepository>();
             services.AddSingleton<IOpenAiService, OpenAiService>();
             
             services.AddTransient<ICommand, SpecCommand>();

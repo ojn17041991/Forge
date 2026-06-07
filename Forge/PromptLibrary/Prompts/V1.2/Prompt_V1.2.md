@@ -6,7 +6,7 @@ Please note that .NET 10 is being used in this context.
 
 This is your input data; the C# function signature and optional XML documentation comments on which to base your output.
 
-<CODE>
+{{ CODE }}
 
 ---
 
