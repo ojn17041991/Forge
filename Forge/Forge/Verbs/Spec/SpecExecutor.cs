@@ -53,7 +53,7 @@ namespace Forge.Commands.Spec
                 return ForgeResponseBuilder.Response<string>(promptRenderResponse.ResponseCode);
             }
 
-            ForgeResponse<string> openAiResponse = await openAiService.Speak(prompt.Data!);
+            ForgeResponse<string> openAiResponse = await openAiService.Speak(promptRenderResponse.Data!);
             if (openAiResponse.Success == false)
             {
                 return ForgeResponseBuilder.Response<string>(openAiResponse.ResponseCode);
