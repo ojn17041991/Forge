@@ -2,7 +2,7 @@
   "profiles": {
     "Forge": {
       "commandName": "Project",
-      "commandLineArgs": "spec --filepath ../../../../PromptLibrary/Inputs/Real/ForgeResponseMessages_Get.md"
+      "commandLineArgs": "spec --filepath ../../../../PromptLibrary/Inputs/Real/ForgeResponseBuilder_T_Success_Response.md"
     }
   }
 }

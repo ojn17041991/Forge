@@ -7,6 +7,10 @@ namespace ForgeTest.Responses.ForgeResponseMessagesTests
     public class GetTests
     {
         /*
+Test cases written using Forge.
+Unit tests written manually following test cases.
+Only Essential and Valuable unit tests were implemented.
+
 TEST CASE 1  
 Category: Essential  
 Name: ValidResponseCode_ReturnsCorrespondingMessage  
