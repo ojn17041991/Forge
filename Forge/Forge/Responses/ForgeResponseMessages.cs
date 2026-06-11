@@ -13,6 +13,7 @@ namespace Forge.Responses
         {
             return responseCode switch
             {
+                ForgeResponseCode.ArgumentInvalid => "invalid argument",
                 ForgeResponseCode.ArgumentsMissing => "missing command arguments",
                 ForgeResponseCode.Error => "internal error",
                 ForgeResponseCode.FileExists => "file exists",

@@ -44,6 +44,19 @@ Reason: The tests cover the fundamental expected behaviors of the Get method for
          */
 
         [Fact]
+        public void ArgumentInvalid_ReturnsCorrespondingMessage()
+        {
+            // Arrange
+            ForgeResponseCode responseCode = ForgeResponseCode.ArgumentInvalid;
+
+            // Act
+            string responseMessage = ForgeResponseMessages.Get(responseCode);
+
+            // Assert
+            responseMessage.Should().Be("invalid argument");
+        }
+
+        [Fact]
         public void ArgumentsMissing_ReturnsCorrespondingMessage()
         {
             // Arrange
