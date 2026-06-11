@@ -9,6 +9,7 @@ using Forge.Data;
 using Forge.Infrastructure.Pipeline;
 using Forge.Infrastructure.Prompts;
 using Forge.OpenAi;
+using Forge.Verbs.Gen;
 using Forge.Verbs.Spec;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,11 +26,16 @@ namespace Forge.Extensions
             services.AddSingleton<IPromptRenderer, PromptRenderer>();
             services.AddSingleton<IPromptRepository, PromptRepository>();
             services.AddSingleton<IOpenAiService, OpenAiService>();
-            
+
             services.AddTransient<ICommand, SpecCommand>();
             services.AddTransient<ICommandBuilder, SpecCommandBuilder>();
             services.AddTransient<IExecutor, SpecExecutor>();
             services.AddTransient<IPrompt, SpecPrompt>();
+
+            services.AddTransient<ICommand, GenCommand>();
+            services.AddTransient<ICommandBuilder, GenCommandBuilder>();
+            services.AddTransient<IExecutor, GenExecutor>();
+            services.AddTransient<IPrompt, GenPrompt>();
         }
     }
 }

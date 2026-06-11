@@ -17,7 +17,7 @@ namespace Forge.Data
                 id + ForgeConstants.ForgeSpecExtension
             );
 
-            if (File.Exists(filePath) == true)
+            if (File.Exists(filePath) == false)
             {
                 return ForgeResponseBuilder.Response<string>(ForgeResponseCode.FileMissing);
             }

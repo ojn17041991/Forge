@@ -2,6 +2,8 @@
 
 namespace Forge.Results
 {
+    // OJN: If these returned defaults instead of null, then you wouldn't have to do null forgives throughout the code.
+
     /// <summary>
     /// A container for an internal response code.
     /// Base record sets internal Success flag to true when a successful <see cref="ForgeResponseCode"/> is given. Otherwise false.

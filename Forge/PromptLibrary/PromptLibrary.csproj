@@ -6,20 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Inputs\Real\ForgeResponseBuilder_Response.md" />
-    <None Remove="Inputs\Real\ForgeResponseBuilder_T_Failure_Response.md" />
-    <None Remove="Inputs\Real\ForgeResponseBuilder_T_Success_Response.md" />
-    <None Remove="Inputs\Real\ForgeResponse_Constructor.md" />
-    <None Remove="Inputs\Real\ForgeResponse_T_Constructor.md" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Inputs\Real\ForgeResponseBuilder_T_Failure_Response.md" />
-    <Compile Include="Inputs\Real\ForgeResponseBuilder_T_Success_Response.md" />
-    <Compile Include="Inputs\Real\ForgeResponseBuilder_Response.md" />
-    <Compile Include="Inputs\Real\ForgeResponse_Constructor.md" />
-    <Compile Include="Inputs\Real\ForgeResponse_T_Constructor.md" />
-  </ItemGroup>
-
 </Project>

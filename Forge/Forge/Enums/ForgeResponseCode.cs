@@ -2,6 +2,7 @@
 {
     public enum ForgeResponseCode
     {
+        ArgumentInvalid,
         ArgumentsMissing,
         Error,
         FileExists,

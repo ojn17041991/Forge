@@ -2,7 +2,8 @@
   "profiles": {
     "Forge": {
       "commandName": "Project",
-      "commandLineArgs": "spec --filepath ../../../../PromptLibrary/Inputs/Real/ForgeResponseBuilder_T_Success_Response.md"
+      //"commandLineArgs": "spec --filepath ../../../../PromptLibrary/Inputs/Real/ForgeResponseBuilder_T_Success_Response.md"
+      "commandLineArgs": "gen a5d87a60aa1e418295d6a650d26135e3 --category essential"
     }
   }
 }

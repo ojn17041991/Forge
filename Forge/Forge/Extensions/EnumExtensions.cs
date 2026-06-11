@@ -5,6 +5,8 @@ namespace Forge.Extensions
 {
     public static class EnumExtensions
     {
+        // OJN: Should ForgeResponse be used here? Or should it throw?
+
         public static string? ToDescription(this Enum value)
         {
             var field = value.GetType().GetField(value.ToString());
