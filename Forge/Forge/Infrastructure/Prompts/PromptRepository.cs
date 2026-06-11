@@ -8,8 +8,6 @@ namespace Forge.Infrastructure.Prompts
 {
     public class PromptRepository(IServiceProvider serviceProvider) : IPromptRepository
     {
-        private readonly IServiceProvider serviceProvider = serviceProvider;
-
         private const string promptDirectory = "Prompts";
 
         public ForgeResponse<string> Read(CommandVerb verb)

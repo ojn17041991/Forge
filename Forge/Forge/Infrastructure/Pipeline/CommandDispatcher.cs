@@ -10,8 +10,6 @@ namespace Forge.Infrastructure.Pipeline
 {
     public class CommandDispatcher(IServiceProvider serviceProvider) : ICommandDispatcher
     {
-        private readonly IServiceProvider serviceProvider = serviceProvider;
-
         public async Task<ForgeResponse<string>> Dispatch(ICommand command)
         {
             IEnumerable<IExecutor> commandExecutors = serviceProvider.GetServices<IExecutor>();

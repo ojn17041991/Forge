@@ -10,8 +10,6 @@ namespace Forge.Infrastructure.Pipeline
 {
     public class CommandFactory(IServiceProvider serviceProvider) : ICommandFactory
     {
-        private readonly IServiceProvider serviceProvider = serviceProvider;
-
         public ForgeResponse<ICommand> Build(string[] args)
         {
             if (args.Length < 1)

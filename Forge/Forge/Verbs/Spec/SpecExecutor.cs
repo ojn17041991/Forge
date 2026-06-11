@@ -15,11 +15,6 @@ namespace Forge.Commands.Spec
         ISpecificationStore dataStore
     ) : TypedExecutor<SpecCommand>
     {
-        private readonly IPromptRenderer promptRenderer = promptRenderer;
-        private readonly IPromptRepository promptRepository = promptRepository;
-        private readonly IOpenAiService openAiService = openAiService;
-        private readonly ISpecificationStore dataStore = dataStore;
-
         private const string promptCodeWildcard = "CODE";
 
         public override CommandVerb Verb => CommandVerb.Spec;

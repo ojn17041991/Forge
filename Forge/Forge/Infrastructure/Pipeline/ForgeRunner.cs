@@ -10,9 +10,6 @@ namespace Forge.Infrastructure.Pipeline
         ICommandDispatcher commandDispatcher
     ) : IForgeRunner
     {
-        private readonly ICommandFactory commandFactory = commandFactory;
-        private readonly ICommandDispatcher commandDispatcher = commandDispatcher;
-
         public async Task<ForgeResponse<string>> Run(string[] args)
         {
             // Step 1 - Receive input with args.
