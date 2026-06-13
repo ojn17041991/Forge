@@ -5,7 +5,7 @@ Your task is to generate a comprehensive set of structured unit test cases by ex
 
 This is your input data; the C# function expressed as a structured XML object. 
 
-{{ CODE }}
+{{ CONTEXT }}
 
 ---
 
@@ -14,6 +14,7 @@ This is your output format. Any outputs you produce should be written using this
 {
   "responseCode": string (Success | Error),
   "data": {
+    "schemaVersion": "1",
     "testCases": [
       {
         "name": string,

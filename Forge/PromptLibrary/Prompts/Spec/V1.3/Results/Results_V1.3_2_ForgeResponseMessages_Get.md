@@ -2,6 +2,7 @@
 
 Fail.
 Lacks Enum information required by the Gen command.
+Missed most critical test case; all enum values are represented.
 
 ### Given input:
 
