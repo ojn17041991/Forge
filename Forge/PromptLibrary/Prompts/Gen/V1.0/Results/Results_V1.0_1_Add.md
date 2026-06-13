@@ -1,250 +1,438 @@
 ﻿### Grade:
 
-Fail.
-The function signature and class name is not provided in the input and is therefore incorrect.
-The class is also assumed to be static.
+Pass.
+Test cases appear functional and correct.
 
 ### Given input:
 
-TEST CASE 1  
-Category: Essential  
-Name: AddTwoPositiveNumbers  
-Description: Verifies that the function returns the correct sum when adding two positive numbers.  
-Inputs: 5.0, 7.0  
-Expected Result: 12.0  
-
-TEST CASE 2  
-Category: Essential  
-Name: AddTwoNegativeNumbers  
-Description: Verifies that the function returns the correct sum when adding two negative numbers.  
-Inputs: -3.5, -2.5  
-Expected Result: -6.0  
-
-TEST CASE 3  
-Category: Essential  
-Name: AddPositiveAndNegativeNumber  
-Description: Verifies that the function returns the correct sum when adding a positive number and a negative number.  
-Inputs: 10.0, -4.0  
-Expected Result: 6.0  
-
-TEST CASE 4  
-Category: Valuable  
-Name: AddWithZero  
-Description: Verifies that adding zero to a number returns the number itself and does not affect the sum.  
-Inputs: 0.0, 9.0  
-Expected Result: 9.0  
-
-TEST CASE 5  
-Category: Valuable  
-Name: AddZeroToZero  
-Description: Verifies that adding zero to zero returns zero.  
-Inputs: 0.0, 0.0  
-Expected Result: 0.0  
-
-TEST CASE 6  
-Category: Valuable  
-Name: AddWithDoubleMaxValue  
-Description: Verifies the sum when adding the maximum double value to zero.  
-Inputs: 1.7976931348623157E+308, 0.0  
-Expected Result: 1.7976931348623157E+308  
-
-TEST CASE 7  
-Category: Valuable  
-Name: AddWithDoubleMinValue  
-Description: Verifies the sum when adding the minimum (most negative) double value to zero.  
-Inputs: -1.7976931348623157E+308, 0.0  
-Expected Result: -1.7976931348623157E+308  
-
-TEST CASE 8  
-Category: Optional  
-Name: AddWithInfinity  
-Description: Verifies the behavior when adding positive infinity to a finite number.  
-Inputs: double.PositiveInfinity, 100.0  
-Expected Result: double.PositiveInfinity  
-
-TEST CASE 9  
-Category: Optional  
-Name: AddWithNegativeInfinity  
-Description: Verifies the behavior when adding negative infinity to a finite number.  
-Inputs: double.NegativeInfinity, -200.0  
-Expected Result: double.NegativeInfinity  
-
-TEST CASE 10  
-Category: Optional  
-Name: AddInfinityAndNegativeInfinity  
-Description: Verifies the behavior when adding positive infinity and negative infinity.  
-Inputs: double.PositiveInfinity, double.NegativeInfinity  
-Expected Result: double.NaN  
-
-TEST CASE 11  
-Category: Optional  
-Name: AddWithNaN  
-Description: Verifies the behavior when one operand is NaN (Not a Number).  
-Inputs: double.NaN, 5.0  
-Expected Result: double.NaN  
-
-Confidence: 95%  
-Reason: The test cases cover the primary arithmetic scenarios including positive and negative values, zero, and key special double values such as max/min, infinity, and NaN. Since the function is a simple addition without documented or implied error handling or complex logic, the covered cases represent all distinct behaviors directly observable from the method itself. Some extremely rare floating-point edge cases or underflow scenarios could exist but do not introduce fundamentally new observable behaviors in this context.
+{
+   "context":{
+      "version":1,
+      "target":{
+         "namespace":"FunctionLibrary.Dependencies",
+         "class":{
+            "name":"FunctionLibrary",
+            "accessibility":"public",
+            "isStatic":false,
+            "isAbstract":false,
+            "constructors":[
+               {
+                  "parameters":[
+                     
+                  ]
+               }
+            ]
+         },
+         "method":{
+            "name":"Add",
+            "accessibility":"public",
+            "isStatic":false,
+            "returnType":{
+               "name":"double",
+               "isNullable":false
+            },
+            "parameters":[
+               {
+                  "name":"x",
+                  "type":{
+                     "name":"double",
+                     "isNullable":false
+                  }
+               },
+               {
+                  "name":"y",
+                  "type":{
+                     "name":"double",
+                     "isNullable":false
+                  }
+               }
+            ]
+         }
+      },
+      "documentation":{
+         "summary":"Returns the sum of two numbers.",
+         "remarks":"",
+         "parameters":[
+            {
+               "name":"x",
+               "description":"First number."
+            },
+            {
+               "name":"y",
+               "description":"Second number."
+            }
+         ],
+         "typeParameters":[
+            
+         ],
+         "returns":"The sum of x and y.",
+         "exceptions":[
+            
+         ],
+         "examples":[
+            
+         ]
+      }
+   },
+   "specification":{
+      "testCases":[
+         {
+            "name":"Add_TwoPositiveNumbers_ReturnsSum",
+            "description":"Verifies that adding two positive numbers returns their arithmetic sum.",
+            "category":"Essential",
+            "inputs":[
+               {
+                  "name":"x",
+                  "value":2.0
+               },
+               {
+                  "name":"y",
+                  "value":3.0
+               }
+            ],
+            "expectedResult":"5"
+         },
+         {
+            "name":"Add_PositiveAndNegativeNumber_ReturnsCorrectSum",
+            "description":"Verifies that adding a positive number and a negative number returns the correct result.",
+            "category":"Essential",
+            "inputs":[
+               {
+                  "name":"x",
+                  "value":5.0
+               },
+               {
+                  "name":"y",
+                  "value":-2.0
+               }
+            ],
+            "expectedResult":"3"
+         },
+         {
+            "name":"Add_WithZero_ReturnsSameValue",
+            "description":"Verifies that adding zero to a number returns the original number unchanged.",
+            "category":"Essential",
+            "inputs":[
+               {
+                  "name":"x",
+                  "value":7.0
+               },
+               {
+                  "name":"y",
+                  "value":0.0
+               }
+            ],
+            "expectedResult":"7"
+         },
+         {
+            "name":"Add_TwoNegativeNumbers_ReturnsNegativeSum",
+            "description":"Verifies that adding two negative numbers returns a negative result equal to their sum.",
+            "category":"Valuable",
+            "inputs":[
+               {
+                  "name":"x",
+                  "value":-4.0
+               },
+               {
+                  "name":"y",
+                  "value":-6.0
+               }
+            ],
+            "expectedResult":"-10"
+         },
+         {
+            "name":"Add_DecimalNumbers_ReturnsAccurateSum",
+            "description":"Verifies that adding two decimal numbers returns the correct decimal result.",
+            "category":"Valuable",
+            "inputs":[
+               {
+                  "name":"x",
+                  "value":1.5
+               },
+               {
+                  "name":"y",
+                  "value":2.25
+               }
+            ],
+            "expectedResult":"3.75"
+         },
+         {
+            "name":"Add_MixedDecimalAndNegative_ReturnsCorrectSum",
+            "description":"Verifies that adding a decimal number and a negative decimal returns the correct result.",
+            "category":"Valuable",
+            "inputs":[
+               {
+                  "name":"x",
+                  "value":2.5
+               },
+               {
+                  "name":"y",
+                  "value":-1.25
+               }
+            ],
+            "expectedResult":"1.25"
+         },
+         {
+            "name":"Add_LargeNumbers_ReturnsCorrectSum",
+            "description":"Verifies that adding very large numbers returns the correct sum.",
+            "category":"Optional",
+            "inputs":[
+               {
+                  "name":"x",
+                  "value":1000000000000.0
+               },
+               {
+                  "name":"y",
+                  "value":1000000000000.0
+               }
+            ],
+            "expectedResult":"2000000000000"
+         },
+         {
+            "name":"Add_FloatingPointPrecision_Input0_1And0_2",
+            "description":"Verifies that adding small decimal values produces the expected result.",
+            "category":"Optional",
+            "inputs":[
+               {
+                  "name":"x",
+                  "value":0.1
+               },
+               {
+                  "name":"y",
+                  "value":0.2
+               }
+            ],
+            "expectedResult":"0.3"
+         },
+         {
+            "name":"Add_NaNInput_ReturnsNaN",
+            "description":"Verifies that adding NaN with a numeric value results in NaN.",
+            "category":"Optional",
+            "inputs":[
+               {
+                  "name":"x",
+                  "value":"NaN"
+               },
+               {
+                  "name":"y",
+                  "value":5.0
+               }
+            ],
+            "expectedResult":"NaN"
+         },
+         {
+            "name":"Add_PositiveInfinity_ReturnsInfinity",
+            "description":"Verifies that adding positive infinity with a finite number returns positive infinity.",
+            "category":"Optional",
+            "inputs":[
+               {
+                  "name":"x",
+                  "value":"Infinity"
+               },
+               {
+                  "name":"y",
+                  "value":1.0
+               }
+            ],
+            "expectedResult":"Infinity"
+         },
+         {
+            "name":"Add_NegativeInfinity_ReturnsNegativeInfinity",
+            "description":"Verifies that adding negative infinity with a finite number returns negative infinity.",
+            "category":"Optional",
+            "inputs":[
+               {
+                  "name":"x",
+                  "value":"-Infinity"
+               },
+               {
+                  "name":"y",
+                  "value":1.0
+               }
+            ],
+            "expectedResult":"-Infinity"
+         }
+      ],
+      "metadata":{
+         "confidence":92,
+         "reason":"Covers core arithmetic behaviors, sign interactions, zero identity, decimals, and key IEEE floating-point edge cases without redundant overlap."
+      }
+   }
+}
 
 ### Produced output:
 
+using System;
 using Xunit;
+using FunctionLibrary.Dependencies;
 
-namespace UnitTests;
-
-public class AddTests
+namespace FunctionLibrary.Tests
 {
-    [Fact]
-    public void AddTwoPositiveNumbers()
+    public class FunctionLibraryTests
     {
-        // Arrange
-        double left = 5.0;
-        double right = 7.0;
+        [Fact]
+        public void Add_TwoPositiveNumbers_ReturnsSum()
+        {
+            // Arrange
+            var sut = new FunctionLibrary();
+            double x = 2.0;
+            double y = 3.0;
 
-        // Act
-        double result = Calculator.Add(left, right);
+            // Act
+            var result = sut.Add(x, y);
 
-        // Assert
-        Assert.Equal(12.0, result);
-    }
+            // Assert
+            Assert.Equal(5.0, result);
+        }
 
-    [Fact]
-    public void AddTwoNegativeNumbers()
-    {
-        // Arrange
-        double left = -3.5;
-        double right = -2.5;
+        [Fact]
+        public void Add_PositiveAndNegativeNumber_ReturnsCorrectSum()
+        {
+            // Arrange
+            var sut = new FunctionLibrary();
+            double x = 5.0;
+            double y = -2.0;
 
-        // Act
-        double result = Calculator.Add(left, right);
+            // Act
+            var result = sut.Add(x, y);
 
-        // Assert
-        Assert.Equal(-6.0, result);
-    }
+            // Assert
+            Assert.Equal(3.0, result);
+        }
 
-    [Fact]
-    public void AddPositiveAndNegativeNumber()
-    {
-        // Arrange
-        double left = 10.0;
-        double right = -4.0;
+        [Fact]
+        public void Add_WithZero_ReturnsSameValue()
+        {
+            // Arrange
+            var sut = new FunctionLibrary();
+            double x = 7.0;
+            double y = 0.0;
 
-        // Act
-        double result = Calculator.Add(left, right);
+            // Act
+            var result = sut.Add(x, y);
 
-        // Assert
-        Assert.Equal(6.0, result);
-    }
+            // Assert
+            Assert.Equal(7.0, result);
+        }
 
-    [Fact]
-    public void AddWithZero()
-    {
-        // Arrange
-        double left = 0.0;
-        double right = 9.0;
+        [Fact]
+        public void Add_TwoNegativeNumbers_ReturnsNegativeSum()
+        {
+            // Arrange
+            var sut = new FunctionLibrary();
+            double x = -4.0;
+            double y = -6.0;
 
-        // Act
-        double result = Calculator.Add(left, right);
+            // Act
+            var result = sut.Add(x, y);
 
-        // Assert
-        Assert.Equal(9.0, result);
-    }
+            // Assert
+            Assert.Equal(-10.0, result);
+        }
 
-    [Fact]
-    public void AddZeroToZero()
-    {
-        // Arrange
-        double left = 0.0;
-        double right = 0.0;
+        [Fact]
+        public void Add_DecimalNumbers_ReturnsAccurateSum()
+        {
+            // Arrange
+            var sut = new FunctionLibrary();
+            double x = 1.5;
+            double y = 2.25;
 
-        // Act
-        double result = Calculator.Add(left, right);
+            // Act
+            var result = sut.Add(x, y);
 
-        // Assert
-        Assert.Equal(0.0, result);
-    }
+            // Assert
+            Assert.Equal(3.75, result);
+        }
 
-    [Fact]
-    public void AddWithDoubleMaxValue()
-    {
-        // Arrange
-        double left = double.MaxValue;
-        double right = 0.0;
+        [Fact]
+        public void Add_MixedDecimalAndNegative_ReturnsCorrectSum()
+        {
+            // Arrange
+            var sut = new FunctionLibrary();
+            double x = 2.5;
+            double y = -1.25;
 
-        // Act
-        double result = Calculator.Add(left, right);
+            // Act
+            var result = sut.Add(x, y);
 
-        // Assert
-        Assert.Equal(double.MaxValue, result);
-    }
+            // Assert
+            Assert.Equal(1.25, result);
+        }
 
-    [Fact]
-    public void AddWithDoubleMinValue()
-    {
-        // Arrange
-        double left = double.MinValue;
-        double right = 0.0;
+        [Fact]
+        public void Add_LargeNumbers_ReturnsCorrectSum()
+        {
+            // Arrange
+            var sut = new FunctionLibrary();
+            double x = 1000000000000.0;
+            double y = 1000000000000.0;
 
-        // Act
-        double result = Calculator.Add(left, right);
+            // Act
+            var result = sut.Add(x, y);
 
-        // Assert
-        Assert.Equal(double.MinValue, result);
-    }
+            // Assert
+            Assert.Equal(2000000000000.0, result);
+        }
 
-    [Fact]
-    public void AddWithInfinity()
-    {
-        // Arrange
-        double left = double.PositiveInfinity;
-        double right = 100.0;
+        [Fact]
+        public void Add_FloatingPointPrecision_Input0_1And0_2()
+        {
+            // Arrange
+            var sut = new FunctionLibrary();
+            double x = 0.1;
+            double y = 0.2;
 
-        // Act
-        double result = Calculator.Add(left, right);
+            // Act
+            var result = sut.Add(x, y);
 
-        // Assert
-        Assert.Equal(double.PositiveInfinity, result);
-    }
+            // Assert
+            Assert.Equal(0.3, result, 10);
+        }
 
-    [Fact]
-    public void AddWithNegativeInfinity()
-    {
-        // Arrange
-        double left = double.NegativeInfinity;
-        double right = -200.0;
+        [Fact]
+        public void Add_NaNInput_ReturnsNaN()
+        {
+            // Arrange
+            var sut = new FunctionLibrary();
+            double x = double.NaN;
+            double y = 5.0;
 
-        // Act
-        double result = Calculator.Add(left, right);
+            // Act
+            var result = sut.Add(x, y);
 
-        // Assert
-        Assert.Equal(double.NegativeInfinity, result);
-    }
+            // Assert
+            Assert.True(double.IsNaN(result));
+        }
 
-    [Fact]
-    public void AddInfinityAndNegativeInfinity()
-    {
-        // Arrange
-        double left = double.PositiveInfinity;
-        double right = double.NegativeInfinity;
+        [Fact]
+        public void Add_PositiveInfinity_ReturnsInfinity()
+        {
+            // Arrange
+            var sut = new FunctionLibrary();
+            double x = double.PositiveInfinity;
+            double y = 1.0;
 
-        // Act
-        double result = Calculator.Add(left, right);
+            // Act
+            var result = sut.Add(x, y);
 
-        // Assert
-        Assert.True(double.IsNaN(result));
-    }
+            // Assert
+            Assert.Equal(double.PositiveInfinity, result);
+        }
 
-    [Fact]
-    public void AddWithNaN()
-    {
-        // Arrange
-        double left = double.NaN;
-        double right = 5.0;
+        [Fact]
+        public void Add_NegativeInfinity_ReturnsNegativeInfinity()
+        {
+            // Arrange
+            var sut = new FunctionLibrary();
+            double x = double.NegativeInfinity;
+            double y = 1.0;
 
-        // Act
-        double result = Calculator.Add(left, right);
+            // Act
+            var result = sut.Add(x, y);
 
-        // Assert
-        Assert.True(double.IsNaN(result));
+            // Assert
+            Assert.Equal(double.NegativeInfinity, result);
+        }
     }
 }
