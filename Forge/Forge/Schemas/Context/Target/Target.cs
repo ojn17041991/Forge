@@ -1,6 +1,6 @@
 ﻿namespace Forge.Schemas.Context.Target
 {
-    public class Target
+    public sealed record Target
     {
         public required string Namespace { get; init; }
 

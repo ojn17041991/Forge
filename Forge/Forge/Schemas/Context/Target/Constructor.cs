@@ -1,7 +1,7 @@
 ﻿namespace Forge.Schemas.Context.Target
 {
-    public record Constructor
+    public sealed record Constructor
     {
-        public required IDictionary<string, string> Parameters { get; init; }
+        public required IList<Parameter> Parameters { get; init; }
     }
 }

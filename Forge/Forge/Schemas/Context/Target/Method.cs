@@ -1,6 +1,6 @@
 ﻿namespace Forge.Schemas.Context.Target
 {
-    public class Method
+    public sealed record Method
     {
         public required string Name { get; init; }
 
@@ -10,6 +10,6 @@
 
         public required string ReturnType { get; init; }
 
-        public required IDictionary<string, string> Parameters { get; init; }
+        public required IList<Parameter> Parameters { get; init; }
     }
 }
