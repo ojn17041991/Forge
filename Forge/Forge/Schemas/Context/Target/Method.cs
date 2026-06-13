@@ -8,7 +8,7 @@
 
         public required bool IsStatic { get; init; }
 
-        public required string ReturnType { get; init; }
+        public required Type ReturnType { get; init; }
 
         public required IList<Parameter> Parameters { get; init; }
     }
