@@ -7,6 +7,9 @@
         Error,
         FileExists,
         FileMissing,
+        Incomplete,
+        RequestNotProcessable,
+        ResponseUnparsable,
         Success,
         VerbMissing,
         VerbNotRecognized

@@ -17,7 +17,7 @@ IForgeRunner forgeRunner = host.Services.GetRequiredService<IForgeRunner>();
 ForgeResponse<string> forgeRunResponse = await forgeRunner.Run(args);
 
 // Print the result to console.
-if (forgeRunResponse.Success == false)
+if (forgeRunResponse.IsSuccess == false)
 {
     Console.Write(ForgeResponseMessages.Get(forgeRunResponse.ResponseCode));
 }

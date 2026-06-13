@@ -36,7 +36,7 @@ namespace Forge.Infrastructure.Pipeline
             }
 
             var commandBuildResponse = commandBuilder.Build(args);
-            if (commandBuildResponse.Success == false)
+            if (commandBuildResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<ICommand>(commandBuildResponse.ResponseCode);
             }

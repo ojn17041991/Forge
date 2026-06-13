@@ -25,7 +25,7 @@ namespace Forge.Infrastructure.Pipeline
             }
 
             ForgeResponse<string> commandExecutionResponse = await commandExecutor.Execute(command);
-            if (commandExecutionResponse.Success == false)
+            if (commandExecutionResponse.IsSuccess == false)
             {
                 // Redundant, but will log here later.
             }

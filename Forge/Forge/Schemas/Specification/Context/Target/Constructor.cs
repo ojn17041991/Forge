@@ -1,4 +1,4 @@
-﻿namespace Forge.Schemas.Context.Target
+﻿namespace Forge.Schemas.Specification.Context.Target
 {
     public sealed record Constructor
     {

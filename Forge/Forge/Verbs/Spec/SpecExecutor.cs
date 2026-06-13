@@ -1,10 +1,12 @@
 ﻿using Forge.Abstractions.Data;
 using Forge.Abstractions.OpenAi;
+using Forge.Abstractions.Responses;
 using Forge.Abstractions.Verbs.Executors;
 using Forge.Abstractions.Verbs.Prompts;
 using Forge.Enums;
 using Forge.Responses;
 using Forge.Results;
+using Forge.Schemas.Specification.Result;
 
 namespace Forge.Commands.Spec
 {
@@ -12,6 +14,7 @@ namespace Forge.Commands.Spec
         IPromptRenderer promptRenderer,
         IPromptRepository promptRepository,
         IOpenAiService openAiService,
+        IForgeResponseValidator forgeResponseValidator,
         ISpecificationStore dataStore
     ) : TypedExecutor<SpecCommand>
     {
@@ -22,7 +25,7 @@ namespace Forge.Commands.Spec
         public async override Task<ForgeResponse<string>> Execute(SpecCommand command)
         {
             ForgeResponse<string> prompt = promptRepository.Read(Verb);
-            if (prompt.Success == false)
+            if (prompt.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(prompt.ResponseCode);
             }
@@ -43,26 +46,34 @@ namespace Forge.Commands.Spec
             };
 
             ForgeResponse<string> promptRenderResponse = promptRenderer.Render(prompt.Data!, renderArguments);
-            if (promptRenderResponse.Success == false)
+            if (promptRenderResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(promptRenderResponse.ResponseCode);
             }
 
             ForgeResponse<string> openAiResponse = await openAiService.Speak(promptRenderResponse.Data!);
-            if (openAiResponse.Success == false)
+            if (openAiResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(openAiResponse.ResponseCode);
+            }
+
+            ForgeResponse responseValidationResponse = forgeResponseValidator.Validate<SpecificationResultSchema>(openAiResponse.Data!);
+            if (responseValidationResponse.IsUsable == false)
+            {
+                return ForgeResponseBuilder.Response<string>(responseValidationResponse.ResponseCode);
             }
 
             string specificationId = Guid.NewGuid().ToString().Replace("-", string.Empty);
 
             ForgeResponse dataStoreResponse = await dataStore.Save(specificationId, openAiResponse.Data!);
-            if (dataStoreResponse.Success == false)
+            if (dataStoreResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(dataStoreResponse.ResponseCode);
             }
 
-            return ForgeResponseBuilder.Response(specificationId, ForgeResponseCode.Success);
+            // Return the validation response code here, as it will either be Success or Incomplete...
+            // ...and that response must propagate back to the console for output.
+            return ForgeResponseBuilder.Response(specificationId, responseValidationResponse.ResponseCode);
         }
     }
 }

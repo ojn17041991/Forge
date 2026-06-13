@@ -17,7 +17,7 @@ namespace Forge.Infrastructure.Pipeline
 
             // Step 2 - Get a command from the factory.
             ForgeResponse<ICommand> commandBuildResponse = commandFactory.Build(args);
-            if (commandBuildResponse.Success == false)
+            if (commandBuildResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(commandBuildResponse.ResponseCode);
             }
@@ -25,7 +25,7 @@ namespace Forge.Infrastructure.Pipeline
             // Step 3 - Dispatch the command.
             ICommand command = commandBuildResponse.Data!;
             ForgeResponse<string> commandDispatchResponse = await commandDispatcher.Dispatch(command);
-            if (commandDispatchResponse.Success == false)
+            if (commandDispatchResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(commandDispatchResponse.ResponseCode);
             }

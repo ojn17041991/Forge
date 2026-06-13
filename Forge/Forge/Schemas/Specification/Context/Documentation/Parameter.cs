@@ -1,4 +1,4 @@
-﻿namespace Forge.Schemas.Context.Documentation
+﻿namespace Forge.Schemas.Specification.Context.Documentation
 {
     public class Parameter
     {

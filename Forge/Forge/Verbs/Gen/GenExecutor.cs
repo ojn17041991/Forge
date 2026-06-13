@@ -22,13 +22,13 @@ namespace Forge.Verbs.Gen
         public override async Task<ForgeResponse<string>> Execute(GenCommand command)
         {
             ForgeResponse<string> prompt = promptRepository.Read(Verb);
-            if (prompt.Success == false)
+            if (prompt.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(prompt.ResponseCode);
             }
 
             ForgeResponse<string> specificationResponse = await dataStore.Get(command.SpecificationId);
-            if (specificationResponse.Success == false)
+            if (specificationResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(specificationResponse.ResponseCode);
             }
@@ -42,13 +42,13 @@ namespace Forge.Verbs.Gen
             };
 
             ForgeResponse<string> promptRenderResponse = promptRenderer.Render(prompt.Data!, renderArguments);
-            if (promptRenderResponse.Success == false)
+            if (promptRenderResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(promptRenderResponse.ResponseCode);
             }
 
             ForgeResponse<string> openAiResponse = await openAiService.Speak(promptRenderResponse.Data!);
-            if (openAiResponse.Success == false)
+            if (openAiResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(openAiResponse.ResponseCode);
             }
