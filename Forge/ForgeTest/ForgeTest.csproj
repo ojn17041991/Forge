@@ -26,4 +26,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Spec1.3_Gen1.0\" />
+  </ItemGroup>
+
 </Project>
