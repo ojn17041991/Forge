@@ -18,7 +18,7 @@ namespace Forge.Commands.Spec
         ISpecificationStore dataStore
     ) : TypedExecutor<SpecCommand>
     {
-        private const string promptCodeWildcard = "CODE";
+        private const string promptCodeWildcard = "CONTEXT";
 
         public override CommandVerb Verb => CommandVerb.Spec;
 

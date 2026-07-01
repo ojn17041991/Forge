@@ -12,26 +12,26 @@ This is your input data; the C# function expressed as a structured XML object.
 This is your output format. Any outputs you produce should be written using this format:
 
 {
-  "responseCode": string (Success | Error),
-  "data": {
-    "schemaVersion": "1",
-    "testCases": [
+  "ResponseCode": string (Success | Error),
+  "Data": {
+    "SchemaVersion": "1",
+    "TestCases": [
       {
-        "name": string,
-        "description": string,
-        "category": string (Essential | Valuable | Optional),
-        "inputs": [
+        "Name": string,
+        "Description": string,
+        "Category": string (Essential | Valuable | Optional),
+        "Inputs": [
           {
-            "name": string,
-            "value": any
+            "Name": string,
+            "Value": any
           }
         ],
-        "expectedResult": string
+        "ExpectedResult": string
       }
     ],
-    "metadata": {
-      "confidence": integer (Percentage),
-      "reason": string
+    "Metadata": {
+      "Confidence": integer (Percentage),
+      "Reason": string
     }
   }
 }
@@ -54,10 +54,11 @@ These are your requirements. Please adhere strictly to these when performing thi
 - Produce ONLY the output as specified above. Do not deviate from this format at all.
 - There should be one object added to the "testCases" array for each test case generated.
 - Within each test case object:
-  - The "category" field should be set as follows:
+  - The "Category" field should be set as follows:
     - Essential - Core behaviours required to represent the primary intended usage and main behavioural conditions of the function.
     - Valuable - Additional distinct behaviours or parameter interactions that extend coverage beyond Essential cases.
     - Optional - Low-frequency, edge, or boundary behaviours that do not introduce new behavioural conditions but may still be informative. Highly inferred behaviours belong here.
+  - For each of the "Inputs", if the "Value" is a special value that cannot be represented in JSON, it should be written as a string.
   - Order the output test cases by the "category" field (Essential > Valuable > Optional).
   - The "expectedResult" field must describe observable outcomes only. Do not describe internal logic, implementation assumptions, or reasoning about how the result is derived.
 - After generating all test cases, provide a value in the "confidence" field that indicates how confident you are that all reasonably inferable test cases have been covered, and that superfluous test cases have been avoided.

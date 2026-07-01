@@ -9,13 +9,21 @@ namespace Forge.Responses
     {
         public ForgeResponse Validate<T>(string response)
         {
-            ForgeResponse<T>? deserializedResponse = JsonSerializer.Deserialize<ForgeResponse<T>>(response);
-            if (deserializedResponse == null)
+            try
+            {
+                ForgeResponse<T>? deserializedResponse = JsonSerializer.Deserialize<ForgeResponse<T>>(response);
+
+                if (deserializedResponse == null)
+                {
+                    return ForgeResponseBuilder.Response(ForgeResponseCode.ResponseUnparsable);
+                }
+
+                return ForgeResponseBuilder.Response(deserializedResponse.ResponseCode);
+            }
+            catch (JsonException)
             {
                 return ForgeResponseBuilder.Response(ForgeResponseCode.ResponseUnparsable);
             }
-
-            return ForgeResponseBuilder.Response(deserializedResponse.ResponseCode);
         }
     }
 }

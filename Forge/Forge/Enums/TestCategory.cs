@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace Forge.Enums
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum TestCategory
     {
         [Description("all")]

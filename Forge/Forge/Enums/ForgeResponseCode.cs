@@ -1,5 +1,8 @@
-﻿namespace Forge.Enums
+﻿using System.Text.Json.Serialization;
+
+namespace Forge.Enums
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ForgeResponseCode
     {
         ArgumentInvalid,
