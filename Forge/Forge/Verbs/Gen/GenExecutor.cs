@@ -1,10 +1,12 @@
 ﻿using Forge.Abstractions.Data;
 using Forge.Abstractions.OpenAi;
+using Forge.Abstractions.Responses;
 using Forge.Abstractions.Verbs.Executors;
 using Forge.Abstractions.Verbs.Prompts;
 using Forge.Enums;
 using Forge.Responses;
 using Forge.Results;
+using Forge.Schemas.Generation.Result;
 
 namespace Forge.Verbs.Gen
 {
@@ -12,12 +14,13 @@ namespace Forge.Verbs.Gen
         IPromptRenderer promptRenderer,
         IPromptRepository promptRepository,
         IOpenAiService openAiService,
+        IForgeResponseValidator forgeResponseValidator,
         ISpecificationStore dataStore
     ) : TypedExecutor<GenCommand>
     {
         public override CommandVerb Verb => CommandVerb.Gen;
 
-        private const string testCasesWildcard = "TEST_CASES";
+        private const string testCasesWildcard = "CONTEXT";
 
         public override async Task<ForgeResponse<string>> Execute(GenCommand command)
         {
@@ -51,6 +54,12 @@ namespace Forge.Verbs.Gen
             if (openAiResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(openAiResponse.ResponseCode);
+            }
+
+            ForgeResponse responseValidationResponse = forgeResponseValidator.Validate<GenerationResultSchema>(openAiResponse.Data!);
+            if (responseValidationResponse.IsUsable == false)
+            {
+                return ForgeResponseBuilder.Response<string>(responseValidationResponse.ResponseCode);
             }
 
             return ForgeResponseBuilder.Response(openAiResponse.Data!, ForgeResponseCode.Success);

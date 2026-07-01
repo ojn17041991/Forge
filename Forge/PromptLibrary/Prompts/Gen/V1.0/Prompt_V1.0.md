@@ -13,10 +13,10 @@ This is your input data; A series of test cases that target a specific function,
 This is your output format. Any outputs you produce should be written using this format:
 
 {
-  "responseCode": string (Success | Incomplete | Error),
-  "data": {
-    "schemaVersion": "1",
-    "code": string (Verbatim)
+  "ResponseCode": string (Success | Incomplete | Error),
+  "Data": {
+    "SchemaVersion": "1",
+    "Code": string (Verbatim)
   }
 }
 
