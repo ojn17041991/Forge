@@ -23,7 +23,7 @@ namespace Forge.Extensions
         {
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
             services.AddSingleton<ICommandFactory, CommandFactory>();
-            services.AddSingleton<IForgeResponseValidator, ForgeResponseValidator>();
+            services.AddSingleton<IForgeResponseParser, ForgeResponseParser>();
             services.AddSingleton<IForgeRunner, ForgeRunner>();
             services.AddSingleton<IOpenAiService, OpenAiService>();
             services.AddSingleton<IPromptRenderer, PromptRenderer>();

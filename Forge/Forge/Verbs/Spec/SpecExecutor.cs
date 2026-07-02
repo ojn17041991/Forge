@@ -14,7 +14,7 @@ namespace Forge.Commands.Spec
         IPromptRenderer promptRenderer,
         IPromptRepository promptRepository,
         IOpenAiService openAiService,
-        IForgeResponseValidator forgeResponseValidator,
+        IForgeResponseParser forgeResponseValidator,
         ISpecificationStore dataStore
     ) : TypedExecutor<SpecCommand>
     {
@@ -57,7 +57,7 @@ namespace Forge.Commands.Spec
                 return ForgeResponseBuilder.Response<string>(openAiResponse.ResponseCode);
             }
 
-            ForgeResponse responseValidationResponse = forgeResponseValidator.Validate<SpecificationResultSchema>(openAiResponse.Data!);
+            ForgeResponse<SpecificationResultSchema> responseValidationResponse = forgeResponseValidator.Parse<SpecificationResultSchema>(openAiResponse.Data!);
             if (responseValidationResponse.IsUsable == false)
             {
                 return ForgeResponseBuilder.Response<string>(responseValidationResponse.ResponseCode);

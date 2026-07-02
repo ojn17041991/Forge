@@ -5,9 +5,9 @@ using System.Text.Json;
 
 namespace Forge.Responses
 {
-    public class ForgeResponseValidator : IForgeResponseValidator
+    public class ForgeResponseParser : IForgeResponseParser
     {
-        public ForgeResponse Validate<T>(string response)
+        public ForgeResponse<T> Parse<T>(string response)
         {
             try
             {
@@ -15,14 +15,14 @@ namespace Forge.Responses
 
                 if (deserializedResponse == null)
                 {
-                    return ForgeResponseBuilder.Response(ForgeResponseCode.ResponseUnparsable);
+                    return ForgeResponseBuilder.Response<T>(ForgeResponseCode.ResponseUnparsable);
                 }
 
-                return ForgeResponseBuilder.Response(deserializedResponse.ResponseCode);
+                return deserializedResponse;
             }
             catch (JsonException)
             {
-                return ForgeResponseBuilder.Response(ForgeResponseCode.ResponseUnparsable);
+                return ForgeResponseBuilder.Response<T>(ForgeResponseCode.ResponseUnparsable);
             }
         }
     }

@@ -7,6 +7,7 @@ using Forge.Enums;
 using Forge.Responses;
 using Forge.Results;
 using Forge.Schemas.Generation.Result;
+using System.Text.Json;
 
 namespace Forge.Verbs.Gen
 {
@@ -14,7 +15,7 @@ namespace Forge.Verbs.Gen
         IPromptRenderer promptRenderer,
         IPromptRepository promptRepository,
         IOpenAiService openAiService,
-        IForgeResponseValidator forgeResponseValidator,
+        IForgeResponseParser forgeResponseValidator,
         ISpecificationStore dataStore
     ) : TypedExecutor<GenCommand>
     {
@@ -56,13 +57,16 @@ namespace Forge.Verbs.Gen
                 return ForgeResponseBuilder.Response<string>(openAiResponse.ResponseCode);
             }
 
-            ForgeResponse responseValidationResponse = forgeResponseValidator.Validate<GenerationResultSchema>(openAiResponse.Data!);
+            ForgeResponse<GenerationResultSchema> responseValidationResponse = forgeResponseValidator.Parse<GenerationResultSchema>(openAiResponse.Data!);
             if (responseValidationResponse.IsUsable == false)
             {
                 return ForgeResponseBuilder.Response<string>(responseValidationResponse.ResponseCode);
             }
 
-            return ForgeResponseBuilder.Response(openAiResponse.Data!, ForgeResponseCode.Success);
+            // OJN: As a temporary measure, until I decide how to handle execution responses (#3), I will serialize here and continue to use string.
+            string response = JsonSerializer.Serialize(responseValidationResponse.Data);
+
+            return ForgeResponseBuilder.Response(response, ForgeResponseCode.Success);
         }
     }
 }
