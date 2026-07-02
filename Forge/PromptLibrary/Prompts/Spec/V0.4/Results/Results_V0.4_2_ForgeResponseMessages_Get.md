@@ -7,7 +7,7 @@ Missed most critical test case; all enum values are represented.
 ### Given input:
 
 {
-  "version": 1,
+  "version": 0.1,
   "target": {
     "namespace": "Forge.Responses",
     "class": {
@@ -61,7 +61,7 @@ Missed most critical test case; all enum values are represented.
 {
   "ResponseCode": "Success",
   "Data": {
-    "SchemaVersion": "1",
+    "SchemaVersion": "0.1",
     "TestCases": [
       {
         "Name": "Get_ReturnsMessage_ForDefinedResponseCode",

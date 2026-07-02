@@ -1,5 +1,5 @@
 ﻿{
-  "version": 1,
+  "version": 0.1,
   "target": {
     "namespace": "FunctionLibrary.Dependencies",
     "class": {

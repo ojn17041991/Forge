@@ -6,7 +6,7 @@ Covered major cases.
 ### Given input:
 
 {
-  "version": 1,
+  "version": 0.1,
   "target": {
     "namespace": "FunctionLibrary.Dependencies",
     "class": {
@@ -71,7 +71,7 @@ Covered major cases.
 {
   "ResponseCode": "Success",
   "Data": {
-    "SchemaVersion": "1",
+    "SchemaVersion": "0.1",
     "TestCases": [
       {
         "Name": "Add_PositiveNumbers",

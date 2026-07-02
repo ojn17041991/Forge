@@ -15,7 +15,7 @@ This is your output format. Any outputs you produce should be written using this
 {
   "ResponseCode": string (Success | Incomplete | Error),
   "Data": {
-    "SchemaVersion": "1",
+    "SchemaVersion": "0.1",
     "Code": string (Verbatim)
   }
 }
