@@ -1,69 +1,62 @@
-﻿using global::Forge.Enums;
-using global::Forge.Responses;
-using System;
+﻿using Forge.Enums;
+using Forge.Responses;
 using Xunit;
 
-namespace ForgeTest.Spec1._3_Gen1._0.ForgeResponseMessagesTests
+namespace Forge.Tests
 {
-    public class ForgeResponseMessagesTests
+    // FORGE_TODO: Replace 'ForgeResponseCode' with the actual enum type from the production code.
+    // FORGE_TODO: Replace 'ResponseMessageProvider' with the actual class containing the method under test.
+
+    public class ResponseMessageProviderTests
     {
         [Fact]
-        public void ReturnsMessageForValidResponseCode()
+        public void Get_ReturnsMessage_ForDefinedResponseCode()
         {
             // Arrange
-            ForgeResponseCode responseCode = ForgeResponseCode.FileExists; // FORGE_TODO: ValidResponseCode
+            // FORGE_TODO: Select an actual valid enum member for testing.
+            ForgeResponseCode responseCode = ForgeResponseCode.FileMissing;
 
             // Act
-            string result = ForgeResponseMessages.Get(responseCode);
+            string message = ForgeResponseMessages.Get(responseCode);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.NotEmpty(result);
+            Assert.False(string.IsNullOrEmpty(message));
         }
 
         [Fact]
-        public void DistinctResponseCodesProduceDifferentMessages()
+        public void Get_ReturnsDistinctMessages_ForDifferentResponseCodes()
         {
             // Arrange
-            ForgeResponseCode responseCode1 = ForgeResponseCode.ResponseUnparsable; // FORGE_TODO: DifferentValidResponseCode_1
-            ForgeResponseCode responseCode2 = ForgeResponseCode.Incomplete; // FORGE_TODO: DifferentValidResponseCode_2
+            // FORGE_TODO: Select two distinct valid enum members different from each other.
+            ForgeResponseCode firstCode = ForgeResponseCode.FileMissing;
+            ForgeResponseCode secondCode = ForgeResponseCode.VerbMissing;
 
             // Act
-            string result1 = ForgeResponseMessages.Get(responseCode1);
-            string result2 = ForgeResponseMessages.Get(responseCode2);
+            string firstMessage = ForgeResponseMessages.Get(firstCode);
+            string secondMessage = ForgeResponseMessages.Get(secondCode);
 
             // Assert
-            Assert.NotNull(result1);
-            Assert.NotNull(result2);
-            Assert.NotEqual(result1, result2);
+            Assert.False(string.IsNullOrEmpty(firstMessage));
+            Assert.False(string.IsNullOrEmpty(secondMessage));
+            Assert.NotEqual(firstMessage, secondMessage);
         }
 
         [Fact]
-        public void HandlesLowestEnumValue()
+        public void Get_ConsistentlyReturnsSameMessage_ForSameResponseCode()
         {
             // Arrange
-            ForgeResponseCode responseCode = ForgeResponseCode.ArgumentInvalid; // FORGE_TODO: LowestDefinedResponseCode
+            // FORGE_TODO: Select a specific valid enum member for this test.
+            ForgeResponseCode responseCode = ForgeResponseCode.ArgumentInvalid;
 
             // Act
-            string result = ForgeResponseMessages.Get(responseCode);
+            string firstCallMessage = ForgeResponseMessages.Get(responseCode);
+            string secondCallMessage = ForgeResponseMessages.Get(responseCode);
+            string thirdCallMessage = ForgeResponseMessages.Get(responseCode);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.NotEmpty(result);
-        }
-
-        [Fact]
-        public void HandlesHighestEnumValue()
-        {
-            // Arrange
-            ForgeResponseCode responseCode = ForgeResponseCode.VerbNotRecognized; // FORGE_TODO: HighestDefinedResponseCode
-
-            // Act
-            string result = ForgeResponseMessages.Get(responseCode);
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.NotEmpty(result);
+            Assert.False(string.IsNullOrEmpty(firstCallMessage));
+            Assert.Equal(firstCallMessage, secondCallMessage);
+            Assert.Equal(secondCallMessage, thirdCallMessage);
         }
     }
 }

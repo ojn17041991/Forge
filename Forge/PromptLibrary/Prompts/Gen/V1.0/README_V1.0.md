@@ -1,4 +1,5 @@
-﻿This initial prompt establishes an Overview of the task, an Input format, an Output format, and a set of Requirements that the model should follow while performing the task.
-The Requirements in this version focus on defining CORE and NON-CORE test cases, then generating a set of CORE tests, adding in NON-CORE tests where they are deemed to add substantive value.
+﻿This initial prompt uses the v1.3 Spec Prompt and v1.0 Spec Response schema as an input and produces the v1 Gen Response schema as an output. This is always wrapped in the standard ForgeResponse container for processing.
+There are three possible response codes Success, Incomplete & Error. If Incomplete, it means the model had insufficient data to produce a complete result, but produces a result anyway with any gaps highlighted.
 
-This is using Spec prompt V1.3.
+Currently, the formatting of the output code is not useable. It should be possible to copy and paste this code directly into a test class.
+There are also issues with Success responses missing required information or assuming. Additional Spec context may be required.

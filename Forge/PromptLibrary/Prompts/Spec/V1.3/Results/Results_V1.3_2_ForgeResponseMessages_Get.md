@@ -59,60 +59,50 @@ Missed most critical test case; all enum values are represented.
 ### Produced output:
 
 {
-   "specification":{
-      "testCases":[
-         {
-            "name":"ReturnsMessageForValidResponseCode",
-            "description":"Verifies that a human-readable message is returned when a valid response code is provided.",
-            "category":"Essential",
-            "inputs":[
-               {
-                  "name":"responseCode",
-                  "value":"ValidResponseCode"
-               }
-            ],
-            "expectedResult":"A human-readable console message corresponding to the provided response code is returned."
-         },
-         {
-            "name":"DistinctResponseCodesProduceMessages",
-            "description":"Ensures that different response codes result in returned messages that reflect the provided code input.",
-            "category":"Valuable",
-            "inputs":[
-               {
-                  "name":"responseCode",
-                  "value":"DifferentValidResponseCode"
-               }
-            ],
-            "expectedResult":"A human-readable console message corresponding to the provided response code is returned and reflects the selected response code."
-         },
-         {
-            "name":"HandlesLowestEnumValue",
-            "description":"Verifies behaviour when the lowest defined response code value is provided.",
-            "category":"Optional",
-            "inputs":[
-               {
-                  "name":"responseCode",
-                  "value":"LowestDefinedResponseCode"
-               }
-            ],
-            "expectedResult":"A human-readable console message corresponding to the provided lowest response code is returned."
-         },
-         {
-            "name":"HandlesHighestEnumValue",
-            "description":"Verifies behaviour when the highest defined response code value is provided.",
-            "category":"Optional",
-            "inputs":[
-               {
-                  "name":"responseCode",
-                  "value":"HighestDefinedResponseCode"
-               }
-            ],
-            "expectedResult":"A human-readable console message corresponding to the provided highest response code is returned."
-         }
-      ],
-      "metadata":{
-         "confidence":74,
-         "reason":"Limited visibility into ForgeResponseCode enum prevents precise case enumeration; tests focus on generic, structurally safe behavioural coverage without assuming specific mapping logic."
+  "ResponseCode": "Success",
+  "Data": {
+    "SchemaVersion": "1",
+    "TestCases": [
+      {
+        "Name": "Get_ReturnsMessage_ForDefinedResponseCode",
+        "Description": "Returns a human-readable console message when called with a valid ForgeResponseCode value.",
+        "Category": "Essential",
+        "Inputs": [
+          {
+            "Name": "responseCode",
+            "Value": "ForgeResponseCode (any valid enum member)"
+          }
+        ],
+        "ExpectedResult": "A non-null, non-empty string containing a human-readable console message."
+      },
+      {
+        "Name": "Get_ReturnsDistinctMessages_ForDifferentResponseCodes",
+        "Description": "Returns different console messages when called with different distinct ForgeResponseCode values.",
+        "Category": "Valuable",
+        "Inputs": [
+          {
+            "Name": "responseCode",
+            "Value": "ForgeResponseCode (distinct valid enum member from first test)"
+          }
+        ],
+        "ExpectedResult": "A human-readable console message string that is distinct from messages returned for other response code values."
+      },
+      {
+        "Name": "Get_ConsistentlyReturnsSameMessage_ForSameResponseCode",
+        "Description": "Returns the same human-readable console message when called multiple times with the same ForgeResponseCode value.",
+        "Category": "Optional",
+        "Inputs": [
+          {
+            "Name": "responseCode",
+            "Value": "ForgeResponseCode (specific valid enum member)"
+          }
+        ],
+        "ExpectedResult": "The exact same human-readable console message string returned on every call."
       }
-   }
+    ],
+    "Metadata": {
+      "Confidence": 90,
+      "Reason": "Test cases cover the interaction of different possible enum values with output messages as implied by the method signature and documentation. No internal implementation details or error handling are specified, limiting coverage depth."
+    }
+  }
 }
