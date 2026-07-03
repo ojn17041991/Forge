@@ -7,6 +7,7 @@ using Forge.Enums;
 using Forge.Responses;
 using Forge.Results;
 using Forge.Schemas.Specification.Result;
+using System.Text.Json;
 
 namespace Forge.Commands.Spec
 {
@@ -65,7 +66,16 @@ namespace Forge.Commands.Spec
 
             string specificationId = Guid.NewGuid().ToString().Replace("-", string.Empty);
 
-            ForgeResponse dataStoreResponse = await dataStore.Save(specificationId, openAiResponse.Data!);
+            // OJN: I might need to rethink this as the back-and-forth serialize/deserialize seems a bit wasteful.
+            string specificationContent = JsonSerializer.Serialize(
+                responseValidationResponse.Data,
+                new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                }
+            );
+
+            ForgeResponse dataStoreResponse = await dataStore.Save(specificationId, specificationContent);
             if (dataStoreResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(dataStoreResponse.ResponseCode);

@@ -2,8 +2,8 @@
   "profiles": {
     "Forge": {
       "commandName": "Project",
-      //"commandLineArgs": "spec --filepath ../../../../PromptLibrary/Inputs/Schema/Real/ForgeResponseMessages_Get.md"
-      "commandLineArgs": "gen e88f6dd425fa421383344a5317faa832 --category optional"
+      "commandLineArgs": "spec --filepath ../../../../PromptLibrary/Inputs/Schema/Real/ForgeResponseMessages_Get.md"
+      //"commandLineArgs": "gen e88f6dd425fa421383344a5317faa832 --category optional"
     }
   }
 }

@@ -64,9 +64,15 @@ namespace Forge.Verbs.Gen
             }
 
             // OJN: As a temporary measure, until I decide how to handle execution responses (#3), I will serialize here and continue to use string.
-            string response = JsonSerializer.Serialize(responseValidationResponse.Data);
+            string generationContent = JsonSerializer.Serialize(
+                responseValidationResponse.Data,
+                new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                }
+            );
 
-            return ForgeResponseBuilder.Response(response, ForgeResponseCode.Success);
+            return ForgeResponseBuilder.Response(generationContent, ForgeResponseCode.Success);
         }
     }
 }
