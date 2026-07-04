@@ -6,7 +6,7 @@ using Forge.Abstractions.Verbs.Prompts;
 using Forge.Enums;
 using Forge.Responses;
 using Forge.Results;
-using Forge.Schemas.Generation.Result;
+using Forge.Schemas.Gen.Result;
 using System.Text.Json;
 
 namespace Forge.Verbs.Gen
@@ -57,7 +57,7 @@ namespace Forge.Verbs.Gen
                 return ForgeResponseBuilder.Response<string>(openAiResponse.ResponseCode);
             }
 
-            ForgeResponse<GenerationResultSchema> responseValidationResponse = forgeResponseValidator.Parse<GenerationResultSchema>(openAiResponse.Data!);
+            ForgeResponse<GenResultSchema> responseValidationResponse = forgeResponseValidator.Parse<GenResultSchema>(openAiResponse.Data!);
             if (responseValidationResponse.IsUsable == false)
             {
                 return ForgeResponseBuilder.Response<string>(responseValidationResponse.ResponseCode);

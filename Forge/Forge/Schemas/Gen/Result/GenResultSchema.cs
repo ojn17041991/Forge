@@ -1,6 +1,6 @@
-﻿namespace Forge.Schemas.Generation.Result
+﻿namespace Forge.Schemas.Gen.Result
 {
-    public class GenerationResultSchema
+    public class GenResultSchema
     {
         public required string SchemaVersion { get; init; }
 

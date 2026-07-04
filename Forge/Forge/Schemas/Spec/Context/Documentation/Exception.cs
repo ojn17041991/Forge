@@ -1,4 +1,4 @@
-﻿namespace Forge.Schemas.Specification.Context.Documentation
+﻿namespace Forge.Schemas.Spec.Context.Documentation
 {
     public sealed record Exception
     {

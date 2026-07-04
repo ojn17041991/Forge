@@ -1,4 +1,4 @@
-﻿namespace Forge.Schemas.Specification.Context.Target
+﻿namespace Forge.Schemas.Spec.Context.Target
 {
     public sealed record Target
     {

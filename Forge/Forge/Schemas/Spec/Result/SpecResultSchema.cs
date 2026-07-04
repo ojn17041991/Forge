@@ -1,8 +1,8 @@
-﻿using Forge.Schemas.Specification.Result.TestCases;
+﻿using Forge.Schemas.Spec.Result.TestCases;
 
-namespace Forge.Schemas.Specification.Result
+namespace Forge.Schemas.Spec.Result
 {
-    public sealed record SpecificationResultSchema
+    public sealed record SpecResultSchema
     {
         public required string SchemaVersion { get; init; }
 

@@ -1,4 +1,4 @@
-﻿namespace Forge.Schemas.Specification.Result.TestCases
+﻿namespace Forge.Schemas.Spec.Result.TestCases
 {
     public sealed record Input
     {

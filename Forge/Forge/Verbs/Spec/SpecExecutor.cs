@@ -6,7 +6,7 @@ using Forge.Abstractions.Verbs.Prompts;
 using Forge.Enums;
 using Forge.Responses;
 using Forge.Results;
-using Forge.Schemas.Specification.Result;
+using Forge.Schemas.Spec.Result;
 using System.Text.Json;
 
 namespace Forge.Commands.Spec
@@ -58,7 +58,7 @@ namespace Forge.Commands.Spec
                 return ForgeResponseBuilder.Response<string>(openAiResponse.ResponseCode);
             }
 
-            ForgeResponse<SpecificationResultSchema> responseValidationResponse = forgeResponseValidator.Parse<SpecificationResultSchema>(openAiResponse.Data!);
+            ForgeResponse<SpecResultSchema> responseValidationResponse = forgeResponseValidator.Parse<SpecResultSchema>(openAiResponse.Data!);
             if (responseValidationResponse.IsUsable == false)
             {
                 return ForgeResponseBuilder.Response<string>(responseValidationResponse.ResponseCode);

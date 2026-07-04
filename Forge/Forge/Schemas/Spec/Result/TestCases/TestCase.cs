@@ -1,6 +1,6 @@
 ﻿using Forge.Enums;
 
-namespace Forge.Schemas.Specification.Result.TestCases
+namespace Forge.Schemas.Spec.Result.TestCases
 {
     public class TestCase
     {

@@ -1,6 +1,6 @@
-﻿namespace Forge.Schemas.Specification.Context
+﻿namespace Forge.Schemas.Spec.Context
 {
-    public sealed record SpecificationContextSchema
+    public sealed record SpecContextSchema
     {
         public required string SchemaVersion { get; init; }
 

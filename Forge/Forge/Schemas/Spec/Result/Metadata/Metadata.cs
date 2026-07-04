@@ -1,4 +1,4 @@
-﻿namespace Forge.Schemas.Specification.Result.Metadata
+﻿namespace Forge.Schemas.Spec.Result.Metadata
 {
     public sealed record Metadata
     {
