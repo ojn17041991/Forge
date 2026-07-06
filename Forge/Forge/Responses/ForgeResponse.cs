@@ -1,4 +1,5 @@
-﻿using Forge.Enums;
+﻿using Forge.Attributes;
+using Forge.Enums;
 
 namespace Forge.Results
 {
@@ -30,8 +31,10 @@ namespace Forge.Results
     {
         public required ForgeResponseCode ResponseCode { get; set; }
 
+        [SchemaIgnore]
         public bool IsSuccess => ResponseCode == ForgeResponseCode.Success;
 
+        [SchemaIgnore]
         public bool IsUsable => ResponseCode == ForgeResponseCode.Success || ResponseCode == ForgeResponseCode.Incomplete;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Forge.Abstractions.Schemas;
+using Forge.Attributes;
 using Forge.Enums;
 using Forge.Extensions;
 using Forge.Responses;
@@ -54,6 +55,11 @@ namespace Forge.Schemas
 
                 foreach (var prop in props)
                 {
+                    if (Attribute.IsDefined(prop, typeof(SchemaIgnoreAttribute)))
+                    {
+                        continue;
+                    }
+
                     dict[prop.Name] = GenerateForType(prop.PropertyType);
                 }
 
