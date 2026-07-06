@@ -21,11 +21,11 @@ namespace Forge.Commands.Spec
         ISchemaSerializer schemaSerializer
     ) : TypedExecutor<SpecCommand>
     {
-        // OJN: These are responsibilities of the prompts. Do they belong here?
-        private const string promptCodeWildcard = "CONTEXT";
-        private const string outputSchemaWildcard = "SCHEMA";
-
         public override CommandVerb Verb => CommandVerb.Spec;
+
+        // OJN: These are responsibilities of the prompts. Do they belong here?
+        private const string contextWildcard = "CONTEXT";
+        private const string schemaWildcard = "SCHEMA";
 
         public async override Task<ForgeResponse<string>> Execute(SpecCommand command)
         {
@@ -51,11 +51,11 @@ namespace Forge.Commands.Spec
             IDictionary<string, string> renderArguments = new Dictionary<string, string>
             {
                 {
-                    promptCodeWildcard,
+                    contextWildcard,
                     fileContent
                 },
                 {
-                    outputSchemaWildcard,
+                    schemaWildcard,
                     schemaResponse.Data!
                 }
             };

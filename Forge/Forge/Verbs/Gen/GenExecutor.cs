@@ -1,6 +1,7 @@
 ﻿using Forge.Abstractions.Data;
 using Forge.Abstractions.OpenAi;
 using Forge.Abstractions.Responses;
+using Forge.Abstractions.Schemas;
 using Forge.Abstractions.Verbs.Executors;
 using Forge.Abstractions.Verbs.Prompts;
 using Forge.Enums;
@@ -16,12 +17,15 @@ namespace Forge.Verbs.Gen
         IPromptRepository promptRepository,
         IOpenAiService openAiService,
         IForgeResponseParser forgeResponseValidator,
-        ISpecificationStore dataStore
+        ISpecificationStore dataStore,
+        ISchemaSerializer schemaSerializer
     ) : TypedExecutor<GenCommand>
     {
         public override CommandVerb Verb => CommandVerb.Gen;
 
-        private const string testCasesWildcard = "CONTEXT";
+        // OJN: These are responsibilities of the prompts. Do they belong here?
+        private const string contextWildcard = "CONTEXT";
+        private const string schemaWildcard = "SCHEMA";
 
         public override async Task<ForgeResponse<string>> Execute(GenCommand command)
         {
@@ -37,11 +41,21 @@ namespace Forge.Verbs.Gen
                 return ForgeResponseBuilder.Response<string>(specificationResponse.ResponseCode);
             }
 
+            ForgeResponse<string> schemaResponse = schemaSerializer.Serialize<ForgeResponse<GenResultSchema>>();
+            if (schemaResponse.IsSuccess == false)
+            {
+                return ForgeResponseBuilder.Response<string>(schemaResponse.ResponseCode);
+            }
+
             IDictionary<string, string> renderArguments = new Dictionary<string, string>
             {
                 {
-                    testCasesWildcard,
+                    contextWildcard,
                     specificationResponse.Data!
+                },
+                {
+                    schemaWildcard,
+                    schemaResponse.Data!
                 }
             };
 
