@@ -79,7 +79,7 @@ namespace Forge.Verbs.Gen
 
             // OJN: As a temporary measure, until I decide how to handle execution responses (#3), I will serialize here and continue to use string.
             string generationContent = JsonSerializer.Serialize(
-                responseValidationResponse.Data,
+                responseValidationResponse.Data!.Code,
                 new JsonSerializerOptions
                 {
                     WriteIndented = true
