@@ -16,7 +16,7 @@ namespace Forge.Infrastructure.Prompts
             {
                 string pattern = $@"\{{\{{\s*{argument.Key}\s*\}}\}}";
 
-                renderedPrompt = Regex.Replace(prompt, pattern, argument.Value);
+                renderedPrompt = Regex.Replace(renderedPrompt, pattern, argument.Value);
             }
 
             return ForgeResponseBuilder.Response(renderedPrompt, ForgeResponseCode.Success);

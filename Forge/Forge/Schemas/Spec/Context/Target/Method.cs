@@ -10,6 +10,6 @@
 
         public required Type ReturnType { get; init; }
 
-        public required IList<Parameter> Parameters { get; init; }
+        public required Parameter[] Parameters { get; init; }
     }
 }

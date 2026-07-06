@@ -6,7 +6,7 @@ namespace Forge.Schemas.Spec.Result
     {
         public required string SchemaVersion { get; init; }
 
-        public required IList<TestCase> TestCases { get; init; }
+        public required TestCase[] TestCases { get; init; }
 
         public required Metadata.Metadata Metadata { get; init; }
     }

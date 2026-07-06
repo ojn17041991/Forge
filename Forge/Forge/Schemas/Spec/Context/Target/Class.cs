@@ -10,6 +10,6 @@
 
         public required bool IsAbstract { get; init; }
 
-        public required IList<Constructor> Constructors { get; init; }
+        public required Constructor[] Constructors { get; init; }
     }
 }

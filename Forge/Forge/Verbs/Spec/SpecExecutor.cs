@@ -1,6 +1,7 @@
 ﻿using Forge.Abstractions.Data;
 using Forge.Abstractions.OpenAi;
 using Forge.Abstractions.Responses;
+using Forge.Abstractions.Schemas;
 using Forge.Abstractions.Verbs.Executors;
 using Forge.Abstractions.Verbs.Prompts;
 using Forge.Enums;
@@ -16,10 +17,13 @@ namespace Forge.Commands.Spec
         IPromptRepository promptRepository,
         IOpenAiService openAiService,
         IForgeResponseParser forgeResponseValidator,
-        ISpecificationStore dataStore
+        ISpecificationStore dataStore,
+        ISchemaSerializer schemaSerializer
     ) : TypedExecutor<SpecCommand>
     {
+        // OJN: These are responsibilities of the prompts. Do they belong here?
         private const string promptCodeWildcard = "CONTEXT";
+        private const string outputSchemaWildcard = "SCHEMA";
 
         public override CommandVerb Verb => CommandVerb.Spec;
 
@@ -38,11 +42,21 @@ namespace Forge.Commands.Spec
 
             string fileContent = File.ReadAllText(command.FilePath);
 
+            ForgeResponse<string> schemaResponse = schemaSerializer.Serialize<ForgeResponse<SpecResultSchema>>();
+            if (schemaResponse.IsSuccess == false)
+            {
+                return ForgeResponseBuilder.Response<string>(schemaResponse.ResponseCode);
+            }
+
             IDictionary<string, string> renderArguments = new Dictionary<string, string>
             {
                 {
                     promptCodeWildcard,
                     fileContent
+                },
+                {
+                    outputSchemaWildcard,
+                    schemaResponse.Data!
                 }
             };
 
@@ -87,3 +101,4 @@ namespace Forge.Commands.Spec
         }
     }
 }
+

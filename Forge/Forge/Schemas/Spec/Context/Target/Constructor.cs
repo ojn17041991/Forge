@@ -2,6 +2,6 @@
 {
     public sealed record Constructor
     {
-        public required IList<Parameter> Parameters { get; init; }
+        public required Parameter[] Parameters { get; init; }
     }
 }

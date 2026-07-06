@@ -2,7 +2,7 @@
 
 namespace Forge.Schemas.Spec.Result.TestCases
 {
-    public class TestCase
+    public sealed record TestCase
     {
         public required string Name { get; init; }
 
@@ -10,7 +10,7 @@ namespace Forge.Schemas.Spec.Result.TestCases
 
         public required TestCategory Category { get; init; }
 
-        public required IList<Input> Inputs { get; init; }
+        public required Input[] Inputs { get; init; }
 
         public required string ExpectedResult { get; init; }
     }
