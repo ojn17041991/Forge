@@ -8,7 +8,6 @@ using Forge.Enums;
 using Forge.Responses;
 using Forge.Results;
 using Forge.Schemas.Gen.Result;
-using System.Text.Json;
 
 namespace Forge.Verbs.Gen
 {
@@ -77,16 +76,7 @@ namespace Forge.Verbs.Gen
                 return ForgeResponseBuilder.Response<string>(responseValidationResponse.ResponseCode);
             }
 
-            // OJN: As a temporary measure, until I decide how to handle execution responses (#3), I will serialize here and continue to use string.
-            string generationContent = JsonSerializer.Serialize(
-                responseValidationResponse.Data!.Code,
-                new JsonSerializerOptions
-                {
-                    WriteIndented = true
-                }
-            );
-
-            return ForgeResponseBuilder.Response(generationContent, ForgeResponseCode.Success);
+            return ForgeResponseBuilder.Response(responseValidationResponse.Data!.Code, ForgeResponseCode.Success);
         }
     }
 }

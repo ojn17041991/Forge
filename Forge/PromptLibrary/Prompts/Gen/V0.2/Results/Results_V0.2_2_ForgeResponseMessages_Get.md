@@ -1,8 +1,7 @@
 ﻿### Grade:
 
-Fail.
-Code not usable without reformatting.
-
+Pass.
+Formatting useable under new requirements.
 
 ### Given input:
 
@@ -30,4 +29,30 @@ Code not usable without reformatting.
 
 ### Produced output:
 
-using Xunit;\n\nnamespace ForgeResponseCodeTests\n{\n    public class ForgeResponseCodeTests\n    {\n        // FORGE_TODO: Replace \u0022ForgeResponseCode\u0022 with the actual enum/class representing response codes\n        // FORGE_TODO: Replace \u0022YourClass\u0022 with the actual class containing the Get method\n\n        [Fact]\n        public void Get_ShouldReturnNonNullString_ForValidResponseCode()\n        {\n            // Arrange\n            // FORGE_TODO: initialize a valid ForgeResponseCode value for testing\n            ForgeResponseCode responseCode = /* FORGE_TODO: select a valid response code value */ default;\n            var sut = new YourClass();\n\n            // Act\n            string result = sut.Get(responseCode);\n\n            // Assert\n            Assert.False(string.IsNullOrEmpty(result));\n        }\n    }\n}\n
+using Xunit;
+
+namespace ForgeResponseCodeTests
+{
+    // FORGE_TODO: Replace 'ForgeResponseCode' with the actual Enum or type representing response codes.
+    // FORGE_TODO: Replace 'YourNamespace' with the actual namespace containing the class under test.
+    using YourNamespace;
+
+    public class ForgeResponseCodeMessageProviderTests
+    {
+        [Fact]
+        public void Get_ShouldReturnNonNullString_ForValidResponseCode()
+        {
+            // Arrange
+            // FORGE_TODO: Provide an actual valid ForgeResponseCode value here for the test
+            ForgeResponseCode responseCode = default; // FORGE_TODO: Assign a valid enum value
+            var messageProvider = new ForgeResponseCodeMessageProvider(); // FORGE_TODO: Replace with actual class name if different
+
+            // Act
+            string result = messageProvider.Get(responseCode);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+        }
+    }
+}

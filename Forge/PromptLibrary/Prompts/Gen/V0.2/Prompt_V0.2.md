@@ -10,7 +10,7 @@ This is your input data; A series of test cases that target a specific function,
 
 ---
 
-This is your output format. Any outputs you produce should be written using this format:
+This is your output schema. Any outputs you produce should be written using this format:
 
 {{ SCHEMA }}
 
@@ -18,20 +18,20 @@ This is your output format. Any outputs you produce should be written using this
 
 These are your requirements. Please adhere strictly to these when performing this task.
 
-- Generate an entirely new test class for function in the input data.
+- Generate an entirely new test class for the function data given in the input.
 - For each test case provided in the input, generate a distinct unit test function within the test class.
 - Each test function should have clearly labelled sections; Arrange, Act, Assert.
 
-- Set the "responseCode" field as follows:
-  - Error - The input data is missing or malformed and it is impossible to generate any unit test functions as a result.
-  - Incomplete - If required contextual information is missing (e.g. enum values, DTO structures, or dependent types), use explicit placeholders in the generated code:
+- Set the "ResponseCode" field as follows:
+  - "Error" - The input data is missing or malformed and it is impossible to generate any unit test functions as a result.
+  - "Incomplete" - If required contextual information is missing (e.g. Enum values, DTO structures, or dependent types), use explicit placeholders in the generated code:
     - Use `FORGE_TODO` comments for unresolved values.
-    - Do not attempt to invent types, enum values, or APIs not present in the input context.
+    - Do not attempt to invent types, Enum values, or APIs not present in the input context.
     - The generated code must remain syntactically valid.
-  - Success - There were no issues or insufficencies with the input data and reliable unit test functions could be generated as a result.
+  - "Success" - There were no issues with the input data and reliable unit test functions could be generated as a result.
 
-- Set the "code" field to be that of the the generated unit test code.
-
-- The "code" field must contain verbatim C# code formatted as it would appear in a .cs file.
-- Do not escape newline characters or convert formatting into JSON-safe string representations.
-- Preserve indentation and line breaks exactly as written.
+- The "Code" field should contain the generated unit test code:
+  - It must be valid C# code.
+  - It must be captured in the output as a valid JSON string.
+  - It must be properly escaped so that the complete response can be safely deserialized as valid JSON.
+  - When deserialized, the resulting string must preserve the original code formatting, including indentation and line breaks.

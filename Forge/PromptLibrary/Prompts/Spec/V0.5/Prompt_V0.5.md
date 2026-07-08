@@ -9,7 +9,7 @@ This is your input data; the C# function expressed as a structured XML object.
 
 ---
 
-This is your output format. Any outputs you produce should be written using this format:
+This is your output schema. Any outputs you produce should be written using this format:
 
 {{ SCHEMA }}
 

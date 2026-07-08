@@ -3,7 +3,7 @@
     "Forge": {
       "commandName": "Project",
       //"commandLineArgs": "spec --filepath ../../../../PromptLibrary/Inputs/Schema/Real/ForgeResponseMessages_Get.md"
-      "commandLineArgs": "gen c097a7891ea84becb2089d09ac40871f --category optional"
+      "commandLineArgs": "gen 383df6dbbe434c2680fee022a6e5b27a --category optional"
     }
   }
 }
