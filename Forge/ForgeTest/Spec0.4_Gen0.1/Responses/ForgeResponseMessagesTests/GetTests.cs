@@ -2,7 +2,7 @@
 using Forge.Responses;
 using Xunit;
 
-namespace Forge.Tests
+namespace ForgeTest.Spec0_4_Gen0_1.Responses.ForgeResponseMessageTests
 {
     // FORGE_TODO: Replace 'ForgeResponseCode' with the actual enum type from the production code.
     // FORGE_TODO: Replace 'ResponseMessageProvider' with the actual class containing the method under test.

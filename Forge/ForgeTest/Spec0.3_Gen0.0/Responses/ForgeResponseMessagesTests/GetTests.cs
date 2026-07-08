@@ -2,7 +2,7 @@ using FluentAssertions;
 using Forge.Enums;
 using Forge.Responses;
 
-namespace ForgeTest.Responses.ForgeResponseMessagesTests
+namespace ForgeTest.Spec0_3_Gen0_0.Responses.ForgeResponseMessagesTests
 {
     public class GetTests
     {

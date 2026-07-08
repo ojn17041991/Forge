@@ -1,4 +1,4 @@
-﻿namespace ForgeTest.Responses.ForgeResponseTests
+﻿namespace ForgeTest.Spec0_3_Gen0_0.Responses.ForgeResponseTests
 {
     public class ConstructorTests
     {
