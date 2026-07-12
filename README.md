@@ -1,12 +1,12 @@
-## Forge
+# Forge
 
 Forge is a unit test generation engine that uses OpenAI to produce behavioural test cases and executable unit test code. It is intentionally blind to function implementation, instead relying solely on function contract to ensure high-quality, resilient test cases that validate behaviour instead of implementation details.
 
-### Forge CLI
+## Forge CLI
 
 Forge CLI is the command line interface for the Forge engine.
 
-### Quick Start
+## Quick Start
 
 Generate a specification:
 
@@ -43,7 +43,7 @@ namespace ForgeTest
 }
 ```
 
-### Process Flow
+## Process Flow
 
 Forge follows a simple command pipeline:
 
@@ -67,11 +67,11 @@ Forge follows a simple command pipeline:
 
 See the <u>Overview</u> section of the attached [Figma](https://embed.figma.com/design/CMQ3KnXCvxL5igU6W00QZv/Forge?node-id=0-1&embed-host=share) for diagram.
 
-### Commands
+## Commands
 
-#### Spec
+### Spec
 
-##### Execution Process
+#### Execution Process
 
 The `spec` command produces a unit test specification for an input function.
 
@@ -105,7 +105,7 @@ It does this by executing the following pipeline:
 
 See the <u>Spec Execution</u> section of the attached [Figma](https://embed.figma.com/design/CMQ3KnXCvxL5igU6W00QZv/Forge?node-id=0-1&embed-host=share) for diagram.
 
-##### Usage
+#### Usage
 
 To invoke the `spec` command use the following syntax:
 
@@ -121,9 +121,9 @@ This produces an output with the following syntax:
 
 * `<specId>` is the ID of the new specification.
 
-#### Gen
+### Gen
 
-##### Execution Process
+#### Execution Process
 
 The `gen` command produces executable unit test code for a specification.
 
@@ -149,7 +149,7 @@ It does this by executing the following pipeline:
 
 See the <u>Gen Execution</u> section of the attached [Figma](https://embed.figma.com/design/CMQ3KnXCvxL5igU6W00QZv/Forge?node-id=0-1&embed-host=share) for diagram.
 
-##### Usage
+#### Usage
 
 To invoke the `gen` command use the following syntax:
 
