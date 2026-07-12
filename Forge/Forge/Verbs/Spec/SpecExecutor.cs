@@ -1,13 +1,16 @@
-﻿using Forge.Abstractions.Data;
-using Forge.Abstractions.OpenAi;
-using Forge.Abstractions.Responses;
-using Forge.Abstractions.Schemas;
-using Forge.Abstractions.Verbs.Executors;
-using Forge.Abstractions.Verbs.Prompts;
+﻿using Forge.Constants;
+using Forge.Data.Abstractions;
 using Forge.Enums;
+using Forge.OpenAi.Abstractions;
+using Forge.Prompts.Abstractions;
 using Forge.Responses;
+using Forge.Responses.Abstractions;
 using Forge.Results;
+using Forge.Schemas.Abstractions;
+using Forge.Schemas.Spec.Context;
 using Forge.Schemas.Spec.Result;
+using Forge.Verbs.Abstractions.Executors;
+using Forge.Verbs.Abstractions.Schema;
 using System.Text.Json;
 
 namespace Forge.Commands.Spec
@@ -17,67 +20,74 @@ namespace Forge.Commands.Spec
         IPromptRepository promptRepository,
         IOpenAiService openAiService,
         IForgeResponseParser forgeResponseValidator,
-        ISpecificationStore dataStore,
-        ISchemaSerializer schemaSerializer
+        ISpecificationRepository dataStore,
+        ISchemaTemplateBuilder schemaTemplateBuilder,
+        ISchemaBuilder<SpecCommand, SpecContextSchema> contextSchemaBuilder
     ) : TypedExecutor<SpecCommand>
     {
         public override CommandVerb Verb => CommandVerb.Spec;
 
-        // OJN: These are responsibilities of the prompts. Do they belong here?
-        private const string contextWildcard = "CONTEXT";
-        private const string schemaWildcard = "SCHEMA";
-
         public async override Task<ForgeResponse<string>> Execute(SpecCommand command)
         {
+            // Read raw prompt.
             ForgeResponse<string> prompt = promptRepository.Read(Verb);
             if (prompt.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(prompt.ResponseCode);
             }
 
-            if (File.Exists(command.FilePath) == false)
+            // Build the context schema.
+            ForgeResponse<SpecContextSchema> contextSchema = contextSchemaBuilder.Build(command);
+            if (contextSchema.IsSuccess == false)
             {
-                return ForgeResponseBuilder.Response<string>(ForgeResponseCode.FileMissing);
+                return ForgeResponseBuilder.Response<string>(prompt.ResponseCode);
             }
 
-            string fileContent = File.ReadAllText(command.FilePath);
+            // Serialize the context schema for the prompt.
+            string contextSchemaJson = JsonSerializer.Serialize(contextSchema.Data);
 
-            ForgeResponse<string> schemaResponse = schemaSerializer.Serialize<ForgeResponse<SpecResultSchema>>();
+            // Build the result schema template.
+            ForgeResponse<string> schemaResponse = schemaTemplateBuilder.Build<ForgeResponse<SpecResultSchema>>();
             if (schemaResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(schemaResponse.ResponseCode);
             }
 
+            // Build the wildcard dictionary.
             IDictionary<string, string> renderArguments = new Dictionary<string, string>
             {
                 {
-                    contextWildcard,
-                    fileContent
+                    WildcardConstants.Context,
+                    contextSchemaJson
                 },
                 {
-                    schemaWildcard,
+                    WildcardConstants.Schema,
                     schemaResponse.Data!
                 }
             };
 
+            // Insert the schemas into the raw prompt as wildcards.
             ForgeResponse<string> promptRenderResponse = promptRenderer.Render(prompt.Data!, renderArguments);
             if (promptRenderResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(promptRenderResponse.ResponseCode);
             }
 
+            // Make the request to Open AI.
             ForgeResponse<string> openAiResponse = await openAiService.Speak(promptRenderResponse.Data!);
             if (openAiResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(openAiResponse.ResponseCode);
             }
 
+            // Confirm the response structure is as expected.
             ForgeResponse<SpecResultSchema> responseValidationResponse = forgeResponseValidator.Parse<SpecResultSchema>(openAiResponse.Data!);
             if (responseValidationResponse.IsUsable == false)
             {
                 return ForgeResponseBuilder.Response<string>(responseValidationResponse.ResponseCode);
             }
 
+            // Build a new Specification ID.
             string specificationId = Guid.NewGuid().ToString().Replace("-", string.Empty);
 
             // OJN: I might need to rethink this as the back-and-forth serialize/deserialize seems a bit wasteful.
@@ -89,12 +99,14 @@ namespace Forge.Commands.Spec
                 }
             );
 
+            // Store the response with new Specification ID as a .forgespec file.
             ForgeResponse dataStoreResponse = await dataStore.Save(specificationId, specificationContent);
             if (dataStoreResponse.IsSuccess == false)
             {
                 return ForgeResponseBuilder.Response<string>(dataStoreResponse.ResponseCode);
             }
 
+            // Return the Specification ID.
             // Return the validation response code here, as it will either be Success or Incomplete...
             // ...and that response must propagate back to the console for output.
             return ForgeResponseBuilder.Response(specificationId, responseValidationResponse.ResponseCode);

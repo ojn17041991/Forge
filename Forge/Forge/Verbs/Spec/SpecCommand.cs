@@ -1,5 +1,5 @@
-﻿using Forge.Abstractions.Verbs.Commands;
-using Forge.Enums;
+﻿using Forge.Enums;
+using Forge.Verbs.Abstractions.Commands;
 
 namespace Forge.Commands.Spec
 {
@@ -8,5 +8,7 @@ namespace Forge.Commands.Spec
         public CommandVerb Verb => CommandVerb.Spec;
 
         public required string FilePath;
+
+        public required string FunctionName;
     }
 }

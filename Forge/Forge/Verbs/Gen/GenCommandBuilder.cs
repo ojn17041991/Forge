@@ -1,8 +1,8 @@
-﻿using Forge.Abstractions.Verbs.Commands;
-using Forge.Enums;
+﻿using Forge.Enums;
 using Forge.Extensions;
 using Forge.Responses;
 using Forge.Results;
+using Forge.Verbs.Abstractions.Commands;
 
 namespace Forge.Verbs.Gen
 {

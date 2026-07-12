@@ -1,5 +1,5 @@
-﻿using Forge.Abstractions.Responses;
-using Forge.Enums;
+﻿using Forge.Enums;
+using Forge.Responses.Abstractions;
 using Forge.Results;
 using System.Text.Json;
 

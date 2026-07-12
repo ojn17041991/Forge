@@ -3,7 +3,7 @@ using Forge.Schemas.Spec.Result;
 
 namespace Forge.Schemas.Generation.Context
 {
-    public class GenContextSchema
+    public sealed record GenContextSchema
     {
         public required string SchemaVersion { get; init; }
 

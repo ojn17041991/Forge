@@ -1,6 +1,6 @@
 ﻿namespace Forge.Schemas.Gen.Result
 {
-    public class GenResultSchema
+    public sealed record GenResultSchema
     {
         public required string SchemaVersion { get; init; }
 

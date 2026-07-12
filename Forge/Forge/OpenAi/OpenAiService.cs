@@ -1,5 +1,5 @@
-﻿using Forge.Abstractions.OpenAi;
-using Forge.Enums;
+﻿using Forge.Enums;
+using Forge.OpenAi.Abstractions;
 using Forge.Responses;
 using Forge.Results;
 using Microsoft.Extensions.Configuration;

@@ -19,10 +19,10 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Prompts\GenPrompt.md">
+    <None Update="Prompts\Files\GenPrompt.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Prompts\SpecPrompt.md">
+    <None Update="Prompts\Files\SpecPrompt.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

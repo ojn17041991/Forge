@@ -1,0 +1,47 @@
+﻿using Forge.Commands.Abstractions;
+using Forge.Enums;
+using Forge.Extensions;
+using Forge.Responses;
+using Forge.Results;
+using Forge.Verbs.Abstractions.Commands;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Forge.Commands
+{
+    public class CommandFactory(IServiceProvider serviceProvider) : ICommandFactory
+    {
+        public ForgeResponse<ICommand> Build(string[] args)
+        {
+            if (args.Length < 1)
+            {
+                return ForgeResponseBuilder.Response<ICommand>(ForgeResponseCode.VerbMissing);
+            }
+
+            var verb = args[0].ToEnum<CommandVerb>();
+            if (verb == null)
+            {
+                return ForgeResponseBuilder.Response<ICommand>(ForgeResponseCode.VerbNotRecognized);
+            }
+
+            var commandBuilders = serviceProvider.GetServices<ICommandBuilder>();
+            if (commandBuilders == null || commandBuilders.Count() == 0)
+            {
+                return ForgeResponseBuilder.Response<ICommand>(ForgeResponseCode.Error);
+            }
+
+            var commandBuilder = commandBuilders.SingleOrDefault(x => x.Verb == verb);
+            if (commandBuilder == null)
+            {
+                return ForgeResponseBuilder.Response<ICommand>(ForgeResponseCode.Error);
+            }
+
+            var commandBuildResponse = commandBuilder.Build(args);
+            if (commandBuildResponse.IsSuccess == false)
+            {
+                return ForgeResponseBuilder.Response<ICommand>(commandBuildResponse.ResponseCode);
+            }
+
+            return commandBuildResponse;
+        }
+    }
+}

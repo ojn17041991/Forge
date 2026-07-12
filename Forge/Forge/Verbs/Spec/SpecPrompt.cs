@@ -1,5 +1,5 @@
-﻿using Forge.Abstractions.Verbs.Prompts;
-using Forge.Enums;
+﻿using Forge.Enums;
+using Forge.Verbs.Abstractions.Prompts;
 
 namespace Forge.Verbs.Spec
 {
