@@ -1,4 +1,4 @@
-# Forge
+## Forge
 
 Forge is a unit test generation engine that uses OpenAI to produce behavioural test cases and executable unit test code. It is intentionally blind to function implementation, instead relying solely on function contract to ensure high-quality, resilient test cases that validate behaviour instead of implementation details.
 
