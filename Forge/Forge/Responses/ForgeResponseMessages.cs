@@ -20,7 +20,7 @@ namespace Forge.Responses
                 ForgeResponseCode.FileMissing => "missing file",
                 ForgeResponseCode.Incomplete => "incomplete response",
                 ForgeResponseCode.RequestNotProcessable => "request not processable",
-                ForgeResponseCode.ResponseUnparsable => "rsponse unparsable",
+                ForgeResponseCode.ResponseCouldNotBeParsed => "response unparsable",
                 ForgeResponseCode.Success => "command executed",
                 ForgeResponseCode.VerbMissing => "missing command",
                 ForgeResponseCode.VerbNotRecognized => "unrecognized command",

@@ -7,12 +7,16 @@ namespace Forge.Enums
     {
         ArgumentInvalid,
         ArgumentsMissing,
+        ClassDefinitionMissing,
+        ConstructorDefinitionMissing,
+        DocumentationDefinitionMissing,
         Error,
         FileExists,
         FileMissing,
+        FunctionDefinitionMissing,
         Incomplete,
         RequestNotProcessable,
-        ResponseUnparsable,
+        ResponseCouldNotBeParsed,
         Success,
         VerbMissing,
         VerbNotRecognized
