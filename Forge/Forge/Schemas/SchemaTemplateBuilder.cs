@@ -23,10 +23,7 @@ namespace Forge.Schemas
 
             string json = JsonSerializer.Serialize(
                 schema,
-                new JsonSerializerOptions
-                {
-                    WriteIndented = true
-                }
+                Forge.Utilities.JsonSerializerOptionsProvider.Options
             );
 
             return ForgeResponseBuilder.Response(json, ForgeResponseCode.Success);

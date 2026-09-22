@@ -12,6 +12,7 @@ using Forge.Schemas.Spec.Result;
 using Forge.Verbs.Abstractions.Executors;
 using Forge.Verbs.Abstractions.Schema;
 using System.Text.Json;
+using Forge.Utilities;
 
 namespace Forge.Commands.Spec
 {
@@ -40,11 +41,11 @@ namespace Forge.Commands.Spec
             ForgeResponse<SpecContextSchema> contextSchema = contextSchemaBuilder.Build(command);
             if (contextSchema.IsSuccess == false)
             {
-                return ForgeResponseBuilder.Response<string>(prompt.ResponseCode);
+                return ForgeResponseBuilder.Response<string>(contextSchema.ResponseCode);
             }
 
             // Serialize the context schema for the prompt.
-            string contextSchemaJson = JsonSerializer.Serialize(contextSchema.Data);
+            string contextSchemaJson = JsonSerializer.Serialize(contextSchema.Data, JsonSerializerOptionsProvider.Options);
 
             // Build the result schema template.
             ForgeResponse<string> schemaResponse = schemaTemplateBuilder.Build<ForgeResponse<SpecResultSchema>>();
@@ -93,10 +94,7 @@ namespace Forge.Commands.Spec
             // OJN: I might need to rethink this as the back-and-forth serialize/deserialize seems a bit wasteful.
             string specificationContent = JsonSerializer.Serialize(
                 responseValidationResponse.Data,
-                new JsonSerializerOptions
-                {
-                    WriteIndented = true
-                }
+                JsonSerializerOptionsProvider.Options
             );
 
             // Store the response with new Specification ID as a .forgespec file.
