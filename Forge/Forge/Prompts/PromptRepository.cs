@@ -9,7 +9,7 @@ namespace Forge.Prompts
 {
     public class PromptRepository(IServiceProvider serviceProvider) : IPromptRepository
     {
-        private const string promptDirectory = "Prompts";
+        private const string promptDirectory = "Prompts/Files";
 
         public ForgeResponse<string> Read(CommandVerb verb)
         {
