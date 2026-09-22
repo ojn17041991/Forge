@@ -6,6 +6,8 @@ namespace FunctionLibrary.Dependencies
 {
     public class FunctionLibrary : IFunctionLibrary
     {
+        public FunctionLibrary() { }
+
         IList<CatDto> _cats = new List<CatDto>();
 
         /// <summary>
