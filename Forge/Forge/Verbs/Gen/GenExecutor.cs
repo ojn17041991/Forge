@@ -62,6 +62,8 @@ namespace Forge.Verbs.Gen
                 }
             };
 
+            // OJN: See item #11 in GitHub. The Gen context schema needs both the Spec context and result schemas to generate accurate test results.
+
             // Insert the schemas into the raw prompt as wildcards.
             ForgeResponse<string> promptRenderResponse = promptRenderer.Render(prompt.Data!, renderArguments);
             if (promptRenderResponse.IsSuccess == false)

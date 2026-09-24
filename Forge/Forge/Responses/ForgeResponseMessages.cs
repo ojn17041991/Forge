@@ -15,9 +15,12 @@ namespace Forge.Responses
             {
                 ForgeResponseCode.ArgumentInvalid => "invalid argument",
                 ForgeResponseCode.ArgumentsMissing => "missing command arguments",
+                ForgeResponseCode.ClassDefinitionMissing => "missing class definition",
+                ForgeResponseCode.DocumentationDefinitionMissing => "missing documentation definition",
                 ForgeResponseCode.Error => "internal error",
                 ForgeResponseCode.FileExists => "file exists",
                 ForgeResponseCode.FileMissing => "missing file",
+                ForgeResponseCode.FunctionDefinitionMissing => "missing function definition",
                 ForgeResponseCode.Incomplete => "incomplete response",
                 ForgeResponseCode.RequestNotProcessable => "request not processable",
                 ForgeResponseCode.ResponseCouldNotBeParsed => "response unparsable",
