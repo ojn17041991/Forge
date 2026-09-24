@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 // Build the host with required dependencies.
 var builder = Host.CreateApplicationBuilder(args);
 builder.Configuration.AddUserSecrets<Program>(optional: true);
-builder.Services.RegisterDependencies();
+builder.Services.RegisterDependencies(builder.Configuration);
 var host = builder.Build();
 
 // Get the pipeline entry point and run Forge.

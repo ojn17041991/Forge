@@ -2,7 +2,8 @@
 using Forge.OpenAi.Abstractions;
 using Forge.Responses;
 using Forge.Results;
-using Microsoft.Extensions.Configuration;
+using Forge.Utilities;
+using Microsoft.Extensions.Options;
 using OpenAI.Chat;
 
 namespace Forge.OpenAi
@@ -11,17 +12,19 @@ namespace Forge.OpenAi
     {
         private readonly ChatClient client;
 
-        public OpenAiService(IConfiguration configuration)
+        public OpenAiService(IOptions<OpenAiOptions> options)
         {
-            string? apiVersion = configuration["OpenAi:Version"] ?? throw new InvalidOperationException("OpenAi:Version must be present in configuration.");
-            string? apiKey = configuration["OpenAi:SecretKey"] ?? throw new InvalidOperationException("OpenAi:SecretKey must be present in configuration.");
+            OpenAiOptions openAiOptions = options.Value ?? throw new InvalidOperationException("OpenAiOptions must be configured.");
 
-            if (apiKey == "IN SECRETS")
+            string version = openAiOptions.Version ?? throw new InvalidOperationException("OpenAi:Version must be present in configuration.");
+            string secretKey = openAiOptions.SecretKey ?? throw new InvalidOperationException("OpenAi:SecretKey must be present in configuration.");
+
+            if (secretKey == "IN SECRETS")
             {
                 throw new InvalidOperationException("OpenAi:SecretKey must be present in secret provider.");
             }
 
-            client = new ChatClient(apiVersion, apiKey);
+            client = new ChatClient(version, secretKey);
         }
 
         public async Task<ForgeResponse<string>> Speak(string prompt)

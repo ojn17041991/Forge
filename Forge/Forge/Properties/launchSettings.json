@@ -2,8 +2,8 @@
   "profiles": {
     "Forge": {
       "commandName": "Project",
-      //"commandLineArgs": "spec --filePath ../../../Responses/ForgeResponseMessages.cs --functionName Get"
-      "commandLineArgs": "gen 96a30caf4c324a9fb20d10636945912e --category optional"
+      "commandLineArgs": "spec --filePath ../../../Responses/ForgeResponseMessages.cs --functionName Get"
+      //"commandLineArgs": "gen 96a30caf4c324a9fb20d10636945912e --category optional"
     }
   }
 }

@@ -14,20 +14,24 @@ using Forge.Responses.Abstractions;
 using Forge.Schemas;
 using Forge.Schemas.Abstractions;
 using Forge.Schemas.Spec.Context;
+using Forge.Utilities;
 using Forge.Verbs.Abstractions.Commands;
 using Forge.Verbs.Abstractions.Executors;
 using Forge.Verbs.Abstractions.Prompts;
 using Forge.Verbs.Abstractions.Schema;
 using Forge.Verbs.Gen;
 using Forge.Verbs.Spec;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Forge.Extensions
 {
     public static class IServiceCollectionExtensions
     {
-        public static void RegisterDependencies(this IServiceCollection services)
+        public static void RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<OpenAiOptions>(configuration.GetSection("OpenAi"));
+
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
             services.AddSingleton<ICommandFactory, CommandFactory>();
             services.AddSingleton<IForgeResponseParser, ForgeResponseParser>();
