@@ -8,7 +8,6 @@ namespace Forge.Enums
         ArgumentInvalid,
         ArgumentsMissing,
         ClassDefinitionMissing,
-        ConstructorDefinitionMissing,
         DocumentationDefinitionMissing,
         Error,
         FileExists,

@@ -45,11 +45,6 @@ namespace Forge.Verbs.Spec
                 .OfType<ConstructorDeclarationSyntax>()
                 .ToArray();
 
-            if (constructorDeclarations.Length == 0)
-            {
-                return ForgeResponseBuilder.Response<SpecContextSchema>(ForgeResponseCode.ConstructorDefinitionMissing);
-            }
-
             // OJN: This doesn't account for overloaded methods. It should probably be based on an explicit argument.
             MethodDeclarationSyntax? functionDeclaration = classDeclaration
                 .Members
